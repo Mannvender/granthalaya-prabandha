@@ -1,11 +1,36 @@
 import * as React from "react"
-import { useRef, useCallback, useState } from "react"
+import { useRef, useCallback, useState, useEffect } from "react"
 import Webcam from "react-webcam"
 import Box from "components/Box"
+import { get_item } from "services/local-storage"
+import { Rekognition } from "@aws-sdk/client-rekognition"
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity"
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity"
+const { REACT_APP_AWS_REGION, REACT_APP_AWS_IDENTITY_POOL_ID } = process.env
 
 const Home = () => {
   const webcamRef = useRef<Webcam>(null!)
   const [file, setFile] = useState<any>(null)
+  useEffect(() => {
+    const cognitoIdentityClient = new CognitoIdentityClient({
+      region: REACT_APP_AWS_REGION,
+    })
+    const rekog = new Rekognition({
+      region: REACT_APP_AWS_REGION,
+      credentials: fromCognitoIdentityPool({
+        client: cognitoIdentityClient,
+        identityPoolId: REACT_APP_AWS_IDENTITY_POOL_ID!,
+      }),
+    })
+    const payload = {
+      CollectionId: "test-users",
+      ExternalImageId: "user-1",
+      // Image: {}, // base64 Image Bytes
+      MaxFaces: 1,
+    }
+    // @ts-ignore
+    rekog.indexFaces(payload)
+  }, [])
 
   const handleCaptureClick = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot()
