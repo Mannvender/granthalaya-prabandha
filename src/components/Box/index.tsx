@@ -15,9 +15,12 @@ const StyledDiv = styled.div<{
   $justifyContent: string
   $alignItems: string
   $padding?: string | { [key in PaddingKeys]?: string }
+  $direction?: 'row' | 'column'
+  $textAlign: string
 }>`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({ $direction }) => $direction};
+  text-align: ${({ $textAlign }) => $textAlign};
   height: ${({ theme, $height }) => theme.size[$height] || $height};
   background-color: ${({ theme, bgColor }) => theme.color[bgColor] || bgColor};
   ${({ $justifyContent }) =>
@@ -69,15 +72,19 @@ interface Props {
   children?: any
   justifyContent?: string
   alignItems?: string
+  textAlign?: string
   padding?: string | { [key in PaddingKeys]?: string }
+  direction?: 'row' | 'column'
 }
 const Box = ({
   alignItems = '',
   bgColor = '',
   children,
   justifyContent = '',
+  textAlign = 'left',
   height = '',
   padding,
+  direction = 'column',
   ...rest
 }: Props) => {
   return (
@@ -87,6 +94,8 @@ const Box = ({
       $alignItems={alignItems}
       $justifyContent={justifyContent}
       $padding={padding}
+      $direction={direction}
+      $textAlign={textAlign}
       {...rest}
     >
       {children}
