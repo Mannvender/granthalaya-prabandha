@@ -6,6 +6,7 @@ const theme = {
       secondary: '#16213e',
       'accent-1': '#0f3460',
       'accent-2': '#e94560',
+      'accent-3': '#8c2a3a',
     },
   },
   size: {
@@ -24,6 +25,7 @@ const theme = {
       none: '0',
       small: '8px',
       medium: '16px',
+      large: '24px',
     },
   },
 }
