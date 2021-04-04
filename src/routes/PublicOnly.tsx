@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 import { getAuthToken } from 'utils/auth-singleton'
 import StackLayout from 'layouts/Stack'

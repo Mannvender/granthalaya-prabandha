@@ -8,7 +8,7 @@ interface Props {
   children?: any
   title?: string
 }
-const StackLayout = ({ children, title }: Props) => {
+const StackLayout = ({ children }: Props) => {
   return (
     <Box height="100vh" bgColor="dark-1">
       {children}

@@ -2,6 +2,9 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
+import { Rekognition } from '@aws-sdk/client-rekognition'
+import { CognitoIdentityClient } from '@aws-sdk/client-cognito-identity'
+import { fromCognitoIdentityPool } from '@aws-sdk/credential-provider-cognito-identity'
 
 import './App.css'
 import theme from 'theme'
@@ -11,6 +14,18 @@ import PublicOnlyRoute from 'routes/PublicOnly'
 import PrivateRoute from 'routes/Private'
 
 import ErrorBoundry from 'components/ErrorBoundry'
+const { REACT_APP_AWS_REGION, REACT_APP_AWS_IDENTITY_POOL_ID } = process.env
+
+const cognitoIdentityClient = new CognitoIdentityClient({
+  region: REACT_APP_AWS_REGION,
+})
+export const rekog = new Rekognition({
+  region: REACT_APP_AWS_REGION,
+  credentials: fromCognitoIdentityPool({
+    client: cognitoIdentityClient,
+    identityPoolId: REACT_APP_AWS_IDENTITY_POOL_ID!,
+  }),
+})
 
 function App() {
   return (

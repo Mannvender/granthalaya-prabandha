@@ -1,42 +1,28 @@
-import * as React from 'react'
-import { useRef, useCallback, useState, useEffect } from 'react'
-import { Rekognition } from '@aws-sdk/client-rekognition'
-import { CognitoIdentityClient } from '@aws-sdk/client-cognito-identity'
-import { fromCognitoIdentityPool } from '@aws-sdk/credential-provider-cognito-identity'
+import React, { useRef, useCallback, useState, useEffect } from 'react'
 import Webcam from 'react-webcam'
 
 import Box from 'components/Box'
 import convertDataURIToBinary from 'utils/base64-to-uint8array'
-const { REACT_APP_AWS_REGION, REACT_APP_AWS_IDENTITY_POOL_ID } = process.env
+import { rekog } from 'App'
+// import useListFaces from 'hooks/useListFaces'
+const { REACT_APP_AWS_REKOGNITION_COLLECTION_ID: CollectionId } = process.env
 
 const Home = () => {
   const webcamRef = useRef<Webcam>(null!)
   const [file, setFile] = useState<any>(null)
+  // const faces = useListFaces()
   useEffect(() => {
-    try {
-      if (file) {
-        const cognitoIdentityClient = new CognitoIdentityClient({
-          region: REACT_APP_AWS_REGION,
-        })
-        const rekog = new Rekognition({
-          region: REACT_APP_AWS_REGION,
-          credentials: fromCognitoIdentityPool({
-            client: cognitoIdentityClient,
-            identityPoolId: REACT_APP_AWS_IDENTITY_POOL_ID!,
-          }),
-        })
-        const payload = {
-          CollectionId: 'test-users',
-          ExternalImageId: 'user-1',
-          Image: { Bytes: convertDataURIToBinary(file) },
-          MaxFaces: 1,
-        }
-        rekog.indexFaces(payload)
+    if (file) {
+      const payload = {
+        CollectionId,
+        ExternalImageId: 'user-1',
+        Image: { Bytes: convertDataURIToBinary(file) },
+        MaxFaces: 1,
       }
-    } catch (error) {
-      console.error(error)
+      // eslint-disable-next-line no-console
+      rekog.indexFaces(payload).then(console.log).catch(console.error)
     }
-  }, [])
+  }, [file])
 
   const handleCaptureClick = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot()
