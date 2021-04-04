@@ -6,7 +6,6 @@ import { Rekognition } from '@aws-sdk/client-rekognition'
 import { CognitoIdentityClient } from '@aws-sdk/client-cognito-identity'
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-provider-cognito-identity'
 
-import './App.css'
 import theme from 'theme'
 import routes from 'routes'
 import PublicRoute from 'routes/Public'
