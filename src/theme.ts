@@ -1,7 +1,12 @@
 const theme = {
   color: {
-    light: { 'dark-1': '#fff' },
-    dark: { 'dark-1': '#1e1e1e' },
+    light: { primary: '#fff' },
+    dark: {
+      primary: '#1a1a2e',
+      secondary: '#16213e',
+      'accent-1': '#0f3460',
+      'accent-2': '#e94560',
+    },
   },
   size: {
     // by default size choosen by user is medium
@@ -14,7 +19,13 @@ const theme = {
       xlarge: '128px',
     },
   },
-  edgeSize: {},
+  edgeSize: {
+    medium: {
+      none: '0',
+      small: '8px',
+      medium: '16px',
+    },
+  },
 }
 
 export default theme

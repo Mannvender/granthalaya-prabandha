@@ -33,7 +33,7 @@ function App() {
       theme={{
         color: theme.color.dark,
         size: theme.size.medium,
-        edgeSize: theme.edgeSize,
+        edgeSize: theme.edgeSize.medium,
       }}
     >
       <Router>
