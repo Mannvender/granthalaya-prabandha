@@ -1,13 +1,13 @@
 import React from 'react'
-import {Route, Redirect} from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 
-import {getAuthToken} from 'utils/auth-singleton'
+import { getAuthToken } from 'utils/auth-singleton'
 import StackLayout from 'layouts/Stack'
 
 interface Props {
   component?: any
 }
-const PublicOnlyRoute = ({component: Component, ...rest}: Props) => {
+const PublicOnlyRoute = ({ component: Component, ...rest }: Props) => {
   const authToken = getAuthToken()
   if (authToken) {
     //TODO: if authToken is there then redirect according to business logic
@@ -15,7 +15,7 @@ const PublicOnlyRoute = ({component: Component, ...rest}: Props) => {
   return (
     <Route
       {...rest}
-      render={props => {
+      render={(props) => {
         return (
           <StackLayout>
             <Component {...props} />

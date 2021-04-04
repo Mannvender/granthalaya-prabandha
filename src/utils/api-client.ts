@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {getAuthToken, loadAuthToken} from 'utils/auth-singleton'
+import { getAuthToken, loadAuthToken } from 'utils/auth-singleton'
 
 /**
  * NOTES:-
@@ -12,7 +12,7 @@ export default (headers: Record<string, any>, ...config: Array<any>) => {
   // TODO: move it to its place
   loadAuthToken()
 
-  let defaultHeaders: {[key: string]: any} = {
+  let defaultHeaders: { [key: string]: any } = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   }
@@ -26,10 +26,10 @@ export default (headers: Record<string, any>, ...config: Array<any>) => {
     timeout: 5000,
   }
   if (headers) {
-    defaultHeaders = {...defaultHeaders, ...headers}
+    defaultHeaders = { ...defaultHeaders, ...headers }
   }
   if (headers) {
-    defaultConfig = {...defaultConfig, ...config}
+    defaultConfig = { ...defaultConfig, ...config }
   }
   return axios.create({
     baseURL: process.env.REACT_APP_CURRENT_API_BASE_URL,

@@ -1,13 +1,13 @@
 import React from 'react'
-import {Route} from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
-import {getAuthToken} from 'utils/auth-singleton'
-import {StackLayout} from 'layouts'
+import { getAuthToken } from 'utils/auth-singleton'
+import { StackLayout } from 'layouts'
 
 interface Props {
   component?: any
 }
-const PublicRoute = ({component: Component, ...rest}: Props) => {
+const PublicRoute = ({ component: Component, ...rest }: Props) => {
   const authToken = getAuthToken()
   if (authToken) {
     // Call getProfile async, so that we can display profile in Header
@@ -15,7 +15,7 @@ const PublicRoute = ({component: Component, ...rest}: Props) => {
   return (
     <Route
       {...rest}
-      render={props => {
+      render={(props) => {
         return (
           <StackLayout>
             <Component {...props} />

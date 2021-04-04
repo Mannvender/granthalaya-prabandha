@@ -23,4 +23,4 @@ function resetAuthToken() {
   auth.token = null
 }
 
-export {loadAuthToken, setAuthToken, getAuthToken, resetAuthToken}
+export { loadAuthToken, setAuthToken, getAuthToken, resetAuthToken }

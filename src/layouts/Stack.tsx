@@ -1,8 +1,8 @@
 // lib imports
-import React from "react"
+import React from 'react'
 
 // shared imports
-import Box from "components/Box"
+import Box from 'components/Box'
 
 interface Props {
   children?: any

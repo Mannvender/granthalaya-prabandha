@@ -1,7 +1,7 @@
 const theme = {
   color: {
-    light: {'dark-1': '#fff'},
-    dark: {'dark-1': '#1e1e1e'},
+    light: { 'dark-1': '#fff' },
+    dark: { 'dark-1': '#1e1e1e' },
   },
   size: {
     // by default size choosen by user is medium

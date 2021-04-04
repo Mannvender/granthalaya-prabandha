@@ -1,8 +1,8 @@
-export function get_item (key: string){
+export function getItem(key: string) {
   const localData = localStorage.getItem(key)
-  return localData ? JSON.parse(localData): null
+  return localData ? JSON.parse(localData) : null
 }
 
-export function set_item (key: string, value: any){
+export function setItem(key: string, value: any) {
   return localStorage.setItem(key, JSON.stringify(value))
 }

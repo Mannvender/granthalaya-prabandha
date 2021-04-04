@@ -1,5 +1,5 @@
-import * as React from "react"
-import styled, { css } from "styled-components"
+import * as React from 'react'
+import styled, { css } from 'styled-components'
 
 const StyledDiv = styled.div<{
   height: string
@@ -31,11 +31,11 @@ interface Props {
   alignItems?: string
 }
 const Box = ({
-  alignItems = "",
-  bgColor = "",
+  alignItems = '',
+  bgColor = '',
   children,
-  justifyContent = "",
-  height = "",
+  justifyContent = '',
+  height = '',
   ...rest
 }: Props) => {
   return (
