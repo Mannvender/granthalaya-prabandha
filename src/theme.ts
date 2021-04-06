@@ -7,6 +7,7 @@ const theme = {
       'accent-1': '#0f3460',
       'accent-2': '#e94560',
       'accent-3': '#8c2a3a',
+      error: '#cc0000',
     },
   },
   size: {
