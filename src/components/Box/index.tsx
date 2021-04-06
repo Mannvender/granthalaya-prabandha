@@ -15,6 +15,7 @@ const StyledDiv = styled.div<{
   $justifyContent: string
   $alignItems: string
   $padding?: string | { [key in PaddingKeys]?: string }
+  $margin?: string | { [key in PaddingKeys]?: string }
   $direction?: 'row' | 'column'
   $textAlign: string
 }>`
@@ -64,6 +65,32 @@ const StyledDiv = styled.div<{
       `
     }
   }}
+  ${({ $margin, theme }) => {
+    if (!$margin) return
+    if (typeof $margin === 'string')
+      return css`
+        padding: ${theme.edgeSize[$margin] || $margin};
+      `
+    else if ($margin.horizontal || $margin.vertical) {
+      const { horizontal, vertical } = $margin
+      return css`
+        padding: ${(theme.edgeSize[vertical || 'none'] || vertical) +
+        ' ' +
+        (theme.edgeSize[horizontal || 'none'] || horizontal)};
+      `
+    } else if ($margin.top || $margin.left || $margin.right || $margin.bottom) {
+      const { top, right, bottom, left } = $margin
+      return css`
+        padding: ${(theme.edgeSize[top || 'none'] || top) +
+        ' ' +
+        (theme.edgeSize[right || 'none'] || right) +
+        ' ' +
+        (theme.edgeSize[bottom || 'none'] || bottom) +
+        ' ' +
+        (theme.edgeSize[left || 'none'] || left)};
+      `
+    }
+  }}
 `
 
 interface Props {
@@ -74,6 +101,7 @@ interface Props {
   alignItems?: string
   textAlign?: string
   padding?: string | { [key in PaddingKeys]?: string }
+  margin?: string | { [key in PaddingKeys]?: string }
   direction?: 'row' | 'column'
 }
 const Box = ({
@@ -84,6 +112,7 @@ const Box = ({
   textAlign = 'left',
   height = '',
   padding,
+  margin,
   direction = 'column',
   ...rest
 }: Props) => {
@@ -94,6 +123,7 @@ const Box = ({
       $alignItems={alignItems}
       $justifyContent={justifyContent}
       $padding={padding}
+      $margin={margin}
       $direction={direction}
       $textAlign={textAlign}
       {...rest}
