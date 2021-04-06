@@ -5,8 +5,10 @@ import styled from 'styled-components'
 import Heading from 'components/Heading'
 import Box from 'components/Box'
 import Button from 'components/Button'
+import useImagePreviewUrl from 'hooks/useImagePreviewUrl'
 
 const LABELS = {
+  image: 'Photo',
   admissionNo: 'Admission No.',
   name: 'Name',
   fatherName: "Father's Name",
@@ -26,6 +28,7 @@ const LABELS = {
   feePaid: 'Fee Paid',
 }
 type FormData = {
+  image: any
   admissionNo: string
   name: string
   fatherName: string
@@ -53,6 +56,7 @@ const StyledForm = styled.form`
     width: 100%;
     margin-bottom: ${({ theme }) => theme.edgeSize.medium};
     line-height: 1.5;
+    border-radius: ${({ theme }) => theme.edgeSize.xsmall};
   }
   label {
     font-size: 18px;
@@ -62,16 +66,24 @@ const StyledForm = styled.form`
     font-weight: 300;
   }
 `
+const StyledPreview = styled.img`
+  height: ${({ theme }) => theme.size.xlarge};
+`
 
 const Register = () => {
   const {
     register,
     // setValue,
     handleSubmit,
-    formState: {
-      // errors
-    },
+    watch,
+    // formState: {
+    // errors
+    // },
   } = useForm<FormData>()
+  const imageFile = watch('image')
+  const imagePreviewUrl = useImagePreviewUrl({
+    blob: imageFile && imageFile[0],
+  })
 
   // eslint-disable-next-line no-console
   const onSubmit = handleSubmit((data) => console.log(data))
@@ -80,6 +92,11 @@ const Register = () => {
     <Box>
       <Heading>Register</Heading>
       <StyledForm onSubmit={onSubmit}>
+        <label htmlFor="image">{LABELS.image}</label>
+        <Box direction="row" height="xlarge" padding={{ bottom: 'medium' }}>
+          <input type="file" id="image" {...register('image')} />
+          <StyledPreview src={imagePreviewUrl} alt="image preview" />
+        </Box>
         <label htmlFor="admissionNo">{LABELS.admissionNo}</label>
         <input type="text" id="admissionNo" {...register('admissionNo')} />
         <label htmlFor="name">{LABELS.name}</label>
