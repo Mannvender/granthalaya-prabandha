@@ -1,6 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
+import { useIndexedDB } from 'react-indexed-db'
 
 import Heading from 'components/Heading'
 import Box from 'components/Box'
@@ -88,19 +89,19 @@ const StyledError = styled.div.attrs(() => ({
 const Register = () => {
   const {
     register,
-    // setValue,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<FormData>()
+  const { add } = useIndexedDB('students')
   const imageFile = watch('image')
   const imagePreviewUrl = useImagePreviewUrl({
     blob: imageFile && imageFile[0],
   })
 
   const onSubmit = handleSubmit((data) => {
-    // eslint-disable-next-line no-console
-    console.log(data)
+    const payload = { ...data, image: imagePreviewUrl }
+    add(payload)
   })
 
   return (
