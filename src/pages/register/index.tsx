@@ -294,6 +294,19 @@ const Register = () => {
         <label htmlFor="reservedSeat">{LABELS.reservedSeat}</label>
         <input type="text" id="reservedSeat" {...register('reservedSeat')} />
         <Box direction="row" justifyContent="space-between">
+          <label htmlFor="dateOfJoining">{LABELS.dateOfJoining}*</label>
+          {errors.dateOfJoining && (
+            <StyledError role="alert" aria-relevant="all">
+              {LABELS.dateOfJoining} is required
+            </StyledError>
+          )}
+        </Box>
+        <input
+          type="date"
+          id="dateOfJoining"
+          {...register('dateOfJoining', { required: true })}
+        />
+        <Box direction="row" justifyContent="space-between">
           <label htmlFor="validUpto">{LABELS.validUpto}*</label>
           {errors.validUpto && (
             <StyledError role="alert" aria-relevant="all">
@@ -302,7 +315,7 @@ const Register = () => {
           )}
         </Box>
         <input
-          type="datetime-local"
+          type="date"
           id="validUpto"
           {...register('validUpto', { required: true })}
         />
