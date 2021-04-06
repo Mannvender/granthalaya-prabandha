@@ -10,7 +10,7 @@ interface Props {
 }
 const StackLayout = ({ children }: Props) => {
   return (
-    <Box height="100%" bgColor="primary" padding={{ horizontal: 'medium' }}>
+    <Box height="100%" bgColor="primary" margin="medium">
       {children}
     </Box>
   )

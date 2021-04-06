@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 const StyledHeading = styled.h1<{ color?: string }>`
   color: ${({ theme, color }) => color || theme.color['accent-2']};
+  margin-top: 0;
 `
 interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   color?: string
