@@ -144,7 +144,7 @@ const Register = () => {
   const handleCapture = (base64Image: string) => setImage(base64Image)
 
   return (
-    <Box>
+    <Box $padding="medium">
       {indicatorEl && (
         <LoaderContainer {...containerProps}>{indicatorEl}</LoaderContainer>
       )}

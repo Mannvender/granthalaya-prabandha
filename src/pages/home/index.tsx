@@ -12,7 +12,7 @@ const Home = () => {
   }
 
   return (
-    <Box $alignItems="center">
+    <Box $alignItems="center" $padding="medium">
       <Webcam onCapture={handleCapture} />
     </Box>
   )

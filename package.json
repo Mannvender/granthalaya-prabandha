@@ -1,6 +1,7 @@
 {
   "name": "react-typescript-boilerplate-may-20",
   "version": "0.1.0",
+  "homepage": "/register",
   "private": true,
   "dependencies": {
     "@agney/react-loading": "^0.1.2",
