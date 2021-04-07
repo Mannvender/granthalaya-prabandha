@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/granthalaya-prabandha/register/static/css/main.19723893.chunk.css",
-    "main.js": "/granthalaya-prabandha/register/static/js/main.ac37daf0.chunk.js",
-    "main.js.map": "/granthalaya-prabandha/register/static/js/main.ac37daf0.chunk.js.map",
-    "runtime-main.js": "/granthalaya-prabandha/register/static/js/runtime-main.8ac245b1.js",
-    "runtime-main.js.map": "/granthalaya-prabandha/register/static/js/runtime-main.8ac245b1.js.map",
-    "static/js/2.7f122864.chunk.js": "/granthalaya-prabandha/register/static/js/2.7f122864.chunk.js",
-    "static/js/2.7f122864.chunk.js.map": "/granthalaya-prabandha/register/static/js/2.7f122864.chunk.js.map",
-    "index.html": "/granthalaya-prabandha/register/index.html",
-    "precache-manifest.099b14fecd28f2abc9d09682a446838f.js": "/granthalaya-prabandha/register/precache-manifest.099b14fecd28f2abc9d09682a446838f.js",
-    "service-worker.js": "/granthalaya-prabandha/register/service-worker.js",
-    "static/css/main.19723893.chunk.css.map": "/granthalaya-prabandha/register/static/css/main.19723893.chunk.css.map",
-    "static/js/2.7f122864.chunk.js.LICENSE.txt": "/granthalaya-prabandha/register/static/js/2.7f122864.chunk.js.LICENSE.txt"
+    "main.css": "/granthalaya-prabandha/static/css/main.19723893.chunk.css",
+    "main.js": "/granthalaya-prabandha/static/js/main.6966642a.chunk.js",
+    "main.js.map": "/granthalaya-prabandha/static/js/main.6966642a.chunk.js.map",
+    "runtime-main.js": "/granthalaya-prabandha/static/js/runtime-main.8b38797f.js",
+    "runtime-main.js.map": "/granthalaya-prabandha/static/js/runtime-main.8b38797f.js.map",
+    "static/js/2.30f6670a.chunk.js": "/granthalaya-prabandha/static/js/2.30f6670a.chunk.js",
+    "static/js/2.30f6670a.chunk.js.map": "/granthalaya-prabandha/static/js/2.30f6670a.chunk.js.map",
+    "index.html": "/granthalaya-prabandha/index.html",
+    "precache-manifest.462d15a86efe981a67b2965d469e9c65.js": "/granthalaya-prabandha/precache-manifest.462d15a86efe981a67b2965d469e9c65.js",
+    "service-worker.js": "/granthalaya-prabandha/service-worker.js",
+    "static/css/main.19723893.chunk.css.map": "/granthalaya-prabandha/static/css/main.19723893.chunk.css.map",
+    "static/js/2.30f6670a.chunk.js.LICENSE.txt": "/granthalaya-prabandha/static/js/2.30f6670a.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.8ac245b1.js",
-    "static/js/2.7f122864.chunk.js",
+    "static/js/runtime-main.8b38797f.js",
+    "static/js/2.30f6670a.chunk.js",
     "static/css/main.19723893.chunk.css",
-    "static/js/main.ac37daf0.chunk.js"
+    "static/js/main.6966642a.chunk.js"
   ]
 }
