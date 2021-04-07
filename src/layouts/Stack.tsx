@@ -10,7 +10,12 @@ interface Props {
 }
 const StackLayout = ({ children }: Props) => {
   return (
-    <Box $height="100%" bgColor="primary" $padding="medium">
+    <Box
+      $height="100%"
+      bgColor="primary"
+      $padding="medium"
+      style={{ minHeight: '100vh' }}
+    >
       {children}
     </Box>
   )
