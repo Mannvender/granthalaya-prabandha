@@ -9,7 +9,7 @@ const Webcam = ({ onCapture }: Props) => {
   const [file, setFile] = useState<any>(null)
   useEffect(() => {
     if (file && onCapture) onCapture(file)
-  }, [file])
+  }, [file, onCapture])
 
   const handleCaptureClick = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot()

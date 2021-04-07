@@ -15,7 +15,7 @@ const useSearchFaces = ({ base64Image }: Props) => {
   }>({ isSuccess: false, isFetching: false, error: '' })
   useEffect(() => {
     if (base64Image) {
-      setStatus({ ...status, isFetching: true })
+      setStatus((prevState) => ({ ...prevState, isFetching: true }))
       const payload = {
         CollectionId,
         Image: {
@@ -28,12 +28,13 @@ const useSearchFaces = ({ base64Image }: Props) => {
         .then((res) => {
           // eslint-disable-next-line no-console
           console.log(res)
-          setStatus({ ...status, isSuccess: true })
+          setStatus((prevState) => ({ ...prevState, isSuccess: true }))
         })
         .catch((err) => {
           console.error(err)
           // If collection does not exists then create new
-          if (err?.Code) setStatus({ ...status, error: err.Code })
+          if (err?.Code)
+            setStatus((prevState) => ({ ...prevState, error: err.Code }))
         })
     }
   }, [base64Image])
