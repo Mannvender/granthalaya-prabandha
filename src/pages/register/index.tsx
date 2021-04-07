@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { useIndexedDB } from 'react-indexed-db'
+import { useLoading } from '@agney/react-loading'
 
 import Heading from 'components/Heading'
 import Box from 'components/Box'
 import Button from 'components/Button'
 import Webcam from 'components/Webcam'
+import LoaderContainer from 'components/LoaderContainer'
 import useImagePreviewUrl from 'hooks/useImagePreviewUrl'
+import useIndexFace from 'hooks/useIndexFace'
 
 const LABELS = {
   image: 'Photo',
@@ -93,27 +96,61 @@ const Register = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<FormData>()
+  } = useForm<FormData>({ mode: 'onTouched' })
   const { add } = useIndexedDB('students')
   const imageFile = watch('image')
   const imagePreviewUrl = useImagePreviewUrl({
     blob: imageFile && imageFile[0],
   })
-  const [showWebcam, setWebcamVisible] = useState(false)
-  const [, setImage] = useState('')
-
-  const onSubmit = handleSubmit((data) => {
-    const payload = { ...data, image: imagePreviewUrl }
-    add(payload)
+  const [showWebcam, setWebcamVisible] = useState(true)
+  const [base64Image, setImage] = useState('')
+  const [userId, setUserId] = useState<string>('')
+  const { isFetching, isSuccess, error } = useIndexFace({
+    base64Image: base64Image || imagePreviewUrl,
+    userId,
   })
+  const { containerProps, indicatorEl } = useLoading({
+    loading: isFetching && !isSuccess,
+  })
+  // eslint-disable-next-line no-console
+  console.log(
+    isFetching,
+    isSuccess,
+    error,
+    '----isFetching, isSuccess, error----',
+  )
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      if (base64Image || imagePreviewUrl) {
+        const payload = { ...data, image: base64Image || imagePreviewUrl }
+        const dbRes = await add(payload)
+        // eslint-disable-next-line no-console
+        console.log(dbRes)
+        setUserId(dbRes.toString())
+      } else {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        })
+        alert('Image is required for authentication')
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const handleCapture = (base64Image: string) => setImage(base64Image)
 
   return (
     <Box>
+      {indicatorEl && (
+        <LoaderContainer {...containerProps}>{indicatorEl}</LoaderContainer>
+      )}
       <Heading>Register</Heading>
       <StyledP>Fields marked with an asterisk (*) are required.</StyledP>
-      <StyledForm onSubmit={onSubmit}>
+      <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <Box $direction="row" $justifyContent="space-between">
           <label htmlFor="image">{LABELS.image}*</label>
           {errors.image && (
