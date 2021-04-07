@@ -3,6 +3,7 @@ import React from 'react'
 
 // shared imports
 import Box from 'components/Box'
+import Navbar from 'components/Navbar'
 
 interface Props {
   children?: any
@@ -10,12 +11,8 @@ interface Props {
 }
 const StackLayout = ({ children }: Props) => {
   return (
-    <Box
-      $height="100%"
-      bgColor="primary"
-      $padding="medium"
-      style={{ minHeight: '100vh' }}
-    >
+    <Box $height="100%" bgColor="primary" style={{ minHeight: '100vh' }}>
+      <Navbar />
       {children}
     </Box>
   )
