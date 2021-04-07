@@ -1,8 +1,10 @@
 import React, { HTMLAttributes, ReactNode } from 'react'
 import styled, { css } from 'styled-components'
 
+import { MarginPaddingKeys } from 'types/margin-padding'
+
 // @fixme: prop "type" should be allowed by HTMLButtonElement
-export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+interface StyledProps extends HTMLAttributes<HTMLButtonElement> {
   /**
    * Should show shadow
    */
@@ -24,16 +26,22 @@ export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
    */
   size?: 'medium' | 'largish' | 'large'
   /**
-   * Button contents
-   */
-  children: ReactNode
-  /**
    * HTML attribute "type"
    */
   type?: 'submit' | 'button'
+  /**
+   * What margin to use ? This will add margin
+   */
+  $margin?: string | { [key in MarginPaddingKeys]?: string }
+}
+export interface ButtonProps extends StyledProps {
+  /**
+   * Button contents
+   */
+  children: ReactNode
 }
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<StyledProps>`
   outline: none;
   padding: 3px 20px 3px 20px;
   border: 0;
@@ -42,7 +50,7 @@ const StyledButton = styled.button`
   font-size: 16px;
   line-height: 24px;
   transition: transform translate 150ms;
-  color: ${(props: ButtonProps) => props.color};
+  color: ${({ theme, color }) => theme.color[color!] || color};
   background-color: ${({ theme, backgroundColor }) =>
     theme.color[backgroundColor!] || backgroundColor};
   cursor: pointer;
@@ -56,9 +64,9 @@ const StyledButton = styled.button`
     transform: translateY(5px);
   }
 
-  ${(props: ButtonProps) => {
+  ${({ size }) => {
     return (
-      props.size === 'large' &&
+      size === 'large' &&
       css`
         padding: 6px 32px 6px 32px;
         border-radius: 22.5px;
@@ -68,9 +76,9 @@ const StyledButton = styled.button`
     )
   }}
 
-  ${(props: ButtonProps) => {
+  ${({ size }) => {
     return (
-      props.size === 'largish' &&
+      size === 'largish' &&
       css`
         font-size: 16px;
         line-height: 24px;
@@ -87,6 +95,32 @@ const StyledButton = styled.button`
         box-shadow: 0 8px ${theme.color[shadowColor!] || shadowColor};
       `
     )
+  }}
+  ${({ $margin, theme }) => {
+    if (!$margin) return
+    if (typeof $margin === 'string')
+      return css`
+        margin: ${theme.edgeSize[$margin] || $margin};
+      `
+    else if ($margin.horizontal || $margin.vertical) {
+      const { horizontal, vertical } = $margin
+      return css`
+        margin: ${(theme.edgeSize[vertical || 'none'] || vertical) +
+        ' ' +
+        (theme.edgeSize[horizontal || 'none'] || horizontal)};
+      `
+    } else if ($margin.top || $margin.left || $margin.right || $margin.bottom) {
+      const { top, right, bottom, left } = $margin
+      return css`
+        margin: ${(theme.edgeSize[top || 'none'] || top) +
+        ' ' +
+        (theme.edgeSize[right || 'none'] || right) +
+        ' ' +
+        (theme.edgeSize[bottom || 'none'] || bottom) +
+        ' ' +
+        (theme.edgeSize[left || 'none'] || left)};
+      `
+    }
   }}
 `
 

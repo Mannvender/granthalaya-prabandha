@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { useIndexedDB } from 'react-indexed-db'
@@ -6,6 +6,7 @@ import { useIndexedDB } from 'react-indexed-db'
 import Heading from 'components/Heading'
 import Box from 'components/Box'
 import Button from 'components/Button'
+import Webcam from 'components/Webcam'
 import useImagePreviewUrl from 'hooks/useImagePreviewUrl'
 
 const LABELS = {
@@ -98,36 +99,62 @@ const Register = () => {
   const imagePreviewUrl = useImagePreviewUrl({
     blob: imageFile && imageFile[0],
   })
+  const [showWebcam, setWebcamVisible] = useState(false)
+  const [, setImage] = useState('')
 
   const onSubmit = handleSubmit((data) => {
     const payload = { ...data, image: imagePreviewUrl }
     add(payload)
   })
 
+  const handleCapture = (base64Image: string) => setImage(base64Image)
+
   return (
     <Box>
       <Heading>Register</Heading>
       <StyledP>Fields marked with an asterisk (*) are required.</StyledP>
       <StyledForm onSubmit={onSubmit}>
-        <Box direction="row" justifyContent="space-between">
+        <Box $direction="row" $justifyContent="space-between">
           <label htmlFor="image">{LABELS.image}*</label>
           {errors.image && (
             <StyledError>{LABELS.image} is required</StyledError>
           )}
         </Box>
-        <Box direction="row" height="xlarge" margin={{ bottom: 'medium' }}>
-          <input
-            type="file"
-            accept="image/*"
-            id="image"
-            {...register('image', { required: true })}
-          />
-          <StyledPreview
-            src={imagePreviewUrl || 'https://i.ibb.co/SyLM04b/skeleton.png'}
-            alt="preview"
-          />
+        <Box $margin={{ bottom: 'large' }} $direction="row">
+          <Button
+            color="gray"
+            backgroundColor="#fff"
+            shadowColor="gray"
+            onClick={() => setWebcamVisible((p) => !p)}
+          >
+            {showWebcam ? 'Use file picker' : 'Use webcam'}
+          </Button>
         </Box>
-        <Box direction="row" justifyContent="space-between">
+        <hr />
+        <Box
+          $direction="row"
+          $height="xxlarge"
+          $justifyContent="center"
+          $margin={{ bottom: 'medium' }}
+        >
+          {showWebcam ? (
+            <Webcam onCapture={handleCapture} />
+          ) : (
+            <>
+              <input
+                type="file"
+                accept="image/*"
+                id="image"
+                {...register('image', { required: true })}
+              />
+              <StyledPreview
+                src={imagePreviewUrl || 'https://i.ibb.co/SyLM04b/skeleton.png'}
+                alt="preview"
+              />
+            </>
+          )}
+        </Box>
+        <Box $direction="row" $justifyContent="space-between">
           <label htmlFor="admissionNo">{LABELS.admissionNo}*</label>
           {errors.admissionNo && (
             <StyledError role="alert" aria-relevant="all">
@@ -141,7 +168,7 @@ const Register = () => {
           aria-required
           {...register('admissionNo', { required: 'true' })}
         />
-        <Box direction="row" justifyContent="space-between">
+        <Box $direction="row" $justifyContent="space-between">
           <label htmlFor="name">{LABELS.name}*</label>
           {errors.name && (
             <StyledError role="alert" aria-relevant="all">
@@ -159,7 +186,7 @@ const Register = () => {
           <label htmlFor="fatherName">{LABELS.fatherName}</label>
         </Box>
         <input type="text" id="fatherName" {...register('fatherName')} />
-        <Box direction="row" justifyContent="space-between">
+        <Box $direction="row" $justifyContent="space-between">
           <label htmlFor="mobileNo">{LABELS.mobileNo}*</label>
           {errors.mobileNo && (
             <StyledError role="alert" aria-relevant="all">
@@ -172,7 +199,7 @@ const Register = () => {
           id="mobileNo"
           {...register('mobileNo', { required: true, minLength: 10 })}
         />
-        <Box direction="row" justifyContent="space-between">
+        <Box $direction="row" $justifyContent="space-between">
           <label htmlFor="">{LABELS.gender}*</label>
           {errors.gender && (
             <StyledError role="alert" aria-relevant="all">
@@ -180,7 +207,7 @@ const Register = () => {
             </StyledError>
           )}
         </Box>
-        <Box direction="row" textAlign="right">
+        <Box $direction="row" $textAlign="right">
           <label htmlFor="gender_male">Male</label>
           <input
             type="radio"
@@ -189,7 +216,7 @@ const Register = () => {
             value="Male"
           />
         </Box>
-        <Box direction="row" textAlign="right">
+        <Box $direction="row" $textAlign="right">
           <label htmlFor="gender_female">Female</label>
           <input
             type="radio"
@@ -198,7 +225,7 @@ const Register = () => {
             value="Female"
           />
         </Box>
-        <Box direction="row" textAlign="right">
+        <Box $direction="row" $textAlign="right">
           <label htmlFor="gender_other">Other</label>
           <input
             type="radio"
@@ -208,7 +235,7 @@ const Register = () => {
           />
         </Box>
         <hr />
-        <Box direction="row" justifyContent="space-between">
+        <Box $direction="row" $justifyContent="space-between">
           <label htmlFor="">{LABELS.identificationDoc}*</label>
           {errors.identificationDoc && (
             <StyledError role="alert" aria-relevant="all">
@@ -216,7 +243,7 @@ const Register = () => {
             </StyledError>
           )}
         </Box>
-        <Box direction="row" textAlign="right">
+        <Box $direction="row" $textAlign="right">
           <label htmlFor="id_doc_aadhar">Aadhar Card</label>
           <input
             type="radio"
@@ -225,7 +252,7 @@ const Register = () => {
             value="Aadhar"
           />
         </Box>
-        <Box direction="row" textAlign="right">
+        <Box $direction="row" $textAlign="right">
           <label htmlFor="id_doc_dl">Driving License</label>
           <input
             type="radio"
@@ -234,7 +261,7 @@ const Register = () => {
             value="Driving License"
           />
         </Box>
-        <Box direction="row" textAlign="right">
+        <Box $direction="row" $textAlign="right">
           <label htmlFor="id_doc_passport">Passport</label>
           <input
             type="radio"
@@ -243,7 +270,7 @@ const Register = () => {
             value="Passport"
           />
         </Box>
-        <Box direction="row" textAlign="right">
+        <Box $direction="row" $textAlign="right">
           <label htmlFor="id_doc_other">Other</label>
           <input
             type="radio"
@@ -252,7 +279,7 @@ const Register = () => {
             value="Other"
           />
         </Box>
-        <Box direction="row" justifyContent="space-between">
+        <Box $direction="row" $justifyContent="space-between">
           <label htmlFor="identificationDocNo">
             {LABELS.identificationDocNo}*
           </label>
@@ -270,7 +297,7 @@ const Register = () => {
         <label htmlFor="address">{LABELS.address}</label>
         <input type="text" id="address" {...register('address')} />
         <label htmlFor="">{LABELS.territory}</label>
-        <Box direction="row" textAlign="right">
+        <Box $direction="row" $textAlign="right">
           <label htmlFor="territory_urban">Urban</label>
           <input
             type="radio"
@@ -279,7 +306,7 @@ const Register = () => {
             value="Urban"
           />
         </Box>
-        <Box direction="row" textAlign="right">
+        <Box $direction="row" $textAlign="right">
           <label htmlFor="territory_rural">Rural</label>
           <input
             type="radio"
@@ -294,7 +321,7 @@ const Register = () => {
         <input type="text" id="lockerNo" {...register('lockerNo')} />
         <label htmlFor="reservedSeat">{LABELS.reservedSeat}</label>
         <input type="text" id="reservedSeat" {...register('reservedSeat')} />
-        <Box direction="row" justifyContent="space-between">
+        <Box $direction="row" $justifyContent="space-between">
           <label htmlFor="dateOfJoining">{LABELS.dateOfJoining}*</label>
           {errors.dateOfJoining && (
             <StyledError role="alert" aria-relevant="all">
@@ -307,7 +334,7 @@ const Register = () => {
           id="dateOfJoining"
           {...register('dateOfJoining', { required: true })}
         />
-        <Box direction="row" justifyContent="space-between">
+        <Box $direction="row" $justifyContent="space-between">
           <label htmlFor="validUpto">{LABELS.validUpto}*</label>
           {errors.validUpto && (
             <StyledError role="alert" aria-relevant="all">
@@ -320,7 +347,7 @@ const Register = () => {
           id="validUpto"
           {...register('validUpto', { required: true })}
         />
-        <Box direction="row" justifyContent="space-between">
+        <Box $direction="row" $justifyContent="space-between">
           <label htmlFor="timeSlotIn">{LABELS.timeSlotIn}*</label>
           {errors.timeSlotIn && (
             <StyledError role="alert" aria-relevant="all">
@@ -333,7 +360,7 @@ const Register = () => {
           id="timeSlotIn"
           {...register('timeSlotIn', { required: true })}
         />
-        <Box direction="row" justifyContent="space-between">
+        <Box $direction="row" $justifyContent="space-between">
           <label htmlFor="timeSlotOut">{LABELS.timeSlotOut}*</label>
           {errors.timeSlotOut && (
             <StyledError role="alert" aria-relevant="all">
@@ -346,7 +373,7 @@ const Register = () => {
           id="timeSlotOut"
           {...register('timeSlotOut', { required: true })}
         />
-        <Box direction="row" justifyContent="space-between">
+        <Box $direction="row" $justifyContent="space-between">
           <label htmlFor="">{LABELS.feePaid}*</label>
           {errors.feePaid && (
             <StyledError role="alert" aria-relevant="all">
@@ -354,7 +381,7 @@ const Register = () => {
             </StyledError>
           )}
         </Box>
-        <Box direction="row" textAlign="right">
+        <Box $direction="row" $textAlign="right">
           <label htmlFor="fee_paid_yes">Yes</label>
           <input
             type="radio"
@@ -363,7 +390,7 @@ const Register = () => {
             value="true"
           />
         </Box>
-        <Box direction="row" textAlign="right">
+        <Box $direction="row" $textAlign="right">
           <label htmlFor="fee_paid_no">No</label>
           <input
             type="radio"
@@ -373,9 +400,9 @@ const Register = () => {
           />
         </Box>
         <Box
-          direction="row"
-          justifyContent="center"
-          padding={{ bottom: 'large' }}
+          $direction="row"
+          $justifyContent="center"
+          $padding={{ bottom: 'large' }}
         >
           <Button type="submit" size="large">
             Submit

@@ -1,21 +1,28 @@
-import * as React from 'react'
+import React, { HTMLAttributes, ReactNode } from 'react'
 import styled, { css } from 'styled-components'
 
-// @todo: fix shape of padding object
-type PaddingKeys =
-  | 'top'
-  | 'bottom'
-  | 'left'
-  | 'right'
-  | 'horizontal'
-  | 'vertical'
+import { MarginPaddingKeys } from 'types/margin-padding'
+
+interface StyledProps extends HTMLAttributes<HTMLDivElement> {
+  $height?: string
+  bgColor?: string
+  $justifyContent?: string
+  $alignItems?: string
+  $textAlign?: string
+  $padding?: string | { [key in MarginPaddingKeys]?: string }
+  $margin?: string | { [key in MarginPaddingKeys]?: string }
+  $direction?: 'row' | 'column'
+}
+interface Props extends StyledProps {
+  children?: ReactNode
+}
 const StyledDiv = styled.div<{
   $height: string
   bgColor: string
   $justifyContent: string
   $alignItems: string
-  $padding?: string | { [key in PaddingKeys]?: string }
-  $margin?: string | { [key in PaddingKeys]?: string }
+  $padding?: string | { [key in MarginPaddingKeys]?: string }
+  $margin?: string | { [key in MarginPaddingKeys]?: string }
   $direction?: 'row' | 'column'
   $textAlign: string
 }>`
@@ -69,19 +76,19 @@ const StyledDiv = styled.div<{
     if (!$margin) return
     if (typeof $margin === 'string')
       return css`
-        padding: ${theme.edgeSize[$margin] || $margin};
+        margin: ${theme.edgeSize[$margin] || $margin};
       `
     else if ($margin.horizontal || $margin.vertical) {
       const { horizontal, vertical } = $margin
       return css`
-        padding: ${(theme.edgeSize[vertical || 'none'] || vertical) +
+        margin: ${(theme.edgeSize[vertical || 'none'] || vertical) +
         ' ' +
         (theme.edgeSize[horizontal || 'none'] || horizontal)};
       `
     } else if ($margin.top || $margin.left || $margin.right || $margin.bottom) {
       const { top, right, bottom, left } = $margin
       return css`
-        padding: ${(theme.edgeSize[top || 'none'] || top) +
+        margin: ${(theme.edgeSize[top || 'none'] || top) +
         ' ' +
         (theme.edgeSize[right || 'none'] || right) +
         ' ' +
@@ -93,39 +100,24 @@ const StyledDiv = styled.div<{
   }}
 `
 
-interface Props {
-  height?: string
-  bgColor?: string
-  children?: any
-  justifyContent?: string
-  alignItems?: string
-  textAlign?: string
-  padding?: string | { [key in PaddingKeys]?: string }
-  margin?: string | { [key in PaddingKeys]?: string }
-  direction?: 'row' | 'column'
-}
 const Box = ({
-  alignItems = '',
+  $alignItems = '',
   bgColor = '',
   children,
-  justifyContent = '',
-  textAlign = 'left',
-  height = '',
-  padding,
-  margin,
-  direction = 'column',
+  $justifyContent = '',
+  $textAlign = 'left',
+  $height = '',
+  $direction = 'column',
   ...rest
 }: Props) => {
   return (
     <StyledDiv
-      $height={height}
+      $height={$height}
       bgColor={bgColor}
-      $alignItems={alignItems}
-      $justifyContent={justifyContent}
-      $padding={padding}
-      $margin={margin}
-      $direction={direction}
-      $textAlign={textAlign}
+      $alignItems={$alignItems}
+      $justifyContent={$justifyContent}
+      $direction={$direction}
+      $textAlign={$textAlign}
       {...rest}
     >
       {children}
