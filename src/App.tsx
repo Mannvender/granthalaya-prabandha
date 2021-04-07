@@ -1,8 +1,9 @@
 // library imports
 import React from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import { initDB } from 'react-indexed-db'
+import { LoaderProvider, Puff } from '@agney/react-loading'
 import { Rekognition } from '@aws-sdk/client-rekognition'
 import { CognitoIdentityClient } from '@aws-sdk/client-cognito-identity'
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-provider-cognito-identity'
@@ -30,6 +31,14 @@ export const rekog = new Rekognition({
   }),
 })
 
+const StyledPuff = styled(Puff as any)`
+  height: 20%;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`
+
 function App() {
   return (
     <ThemeProvider
@@ -41,17 +50,19 @@ function App() {
     >
       <Router>
         <ErrorBoundry>
-          <Switch>
-            {routes.map((route) => {
-              if (route.private) {
-                return <PrivateRoute key={route.path} {...route} />
-              } else if (route.publicOnly) {
-                return <PublicOnlyRoute key={route.path} {...route} />
-              } else {
-                return <PublicRoute key={route.path} {...route} />
-              }
-            })}
-          </Switch>
+          <LoaderProvider indicator={<StyledPuff />}>
+            <Switch>
+              {routes.map((route) => {
+                if (route.private) {
+                  return <PrivateRoute key={route.path} {...route} />
+                } else if (route.publicOnly) {
+                  return <PublicOnlyRoute key={route.path} {...route} />
+                } else {
+                  return <PublicRoute key={route.path} {...route} />
+                }
+              })}
+            </Switch>
+          </LoaderProvider>
         </ErrorBoundry>
       </Router>
     </ThemeProvider>
