@@ -92,7 +92,7 @@ const StyledButton = styled.button<StyledProps>`
     return (
       hasShadow &&
       css`
-        box-shadow: 0 8px ${theme.color[shadowColor!] || shadowColor};
+        box-shadow: 0 6px ${theme.color[shadowColor!] || shadowColor};
       `
     )
   }}
