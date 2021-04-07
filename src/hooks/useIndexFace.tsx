@@ -15,8 +15,8 @@ const useIndexFace = ({ base64Image, userId }: Props) => {
     error: string
   }>({ isSuccess: false, isFetching: false, error: '' })
   useEffect(() => {
-    if (base64Image) {
-      setStatus({ ...status, isFetching: true })
+    if (base64Image && userId) {
+      setStatus((prevState) => ({ ...prevState, isFetching: true }))
       const payload = {
         CollectionId,
         ExternalImageId: userId,
@@ -28,15 +28,16 @@ const useIndexFace = ({ base64Image, userId }: Props) => {
         .then((res) => {
           // eslint-disable-next-line no-console
           console.log(res)
-          setStatus({ ...status, isSuccess: true })
+          setStatus((prevState) => ({ ...prevState, isSuccess: true }))
         })
         .catch((err) => {
           console.error(err)
           // If collection does not exists then create new
-          if (err?.Code) setStatus({ ...status, error: err.Code })
+          if (err?.Code)
+            setStatus((prevState) => ({ ...prevState, error: err.Code }))
         })
     }
-  }, [base64Image])
+  }, [base64Image, userId])
   return status
 }
 
