@@ -1,6 +1,6 @@
 // library imports
 import React from 'react'
-import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import { HashRouter as Router, Switch } from 'react-router-dom'
 import styled, { ThemeProvider } from 'styled-components'
 import { initDB } from 'react-indexed-db'
 import { LoaderProvider, Puff } from '@agney/react-loading'
