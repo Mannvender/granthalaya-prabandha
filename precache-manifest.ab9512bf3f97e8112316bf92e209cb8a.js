@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "48cf1eae657e01a54af62c3b53ef3af8",
+    "revision": "11361e9a57c3c8c5b2893e6b8512332d",
     "url": "/granthalaya-prabandha/index.html"
   },
   {
-    "revision": "642e2fe3f1429429213f",
+    "revision": "b184af3f57a6f449cbc5",
     "url": "/granthalaya-prabandha/static/css/main.19723893.chunk.css"
   },
   {
-    "revision": "08adbb248120454a8816",
-    "url": "/granthalaya-prabandha/static/js/2.2cb9904e.chunk.js"
+    "revision": "4ffb23f8330c550a3ac8",
+    "url": "/granthalaya-prabandha/static/js/2.b6dbb309.chunk.js"
   },
   {
     "revision": "b4ea465c4ce2f5521b7c5ded26858627",
-    "url": "/granthalaya-prabandha/static/js/2.2cb9904e.chunk.js.LICENSE.txt"
+    "url": "/granthalaya-prabandha/static/js/2.b6dbb309.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "642e2fe3f1429429213f",
-    "url": "/granthalaya-prabandha/static/js/main.2495af76.chunk.js"
+    "revision": "b184af3f57a6f449cbc5",
+    "url": "/granthalaya-prabandha/static/js/main.36f6cd13.chunk.js"
   },
   {
     "revision": "0eb6eaf3a096b86e08b4",
