@@ -2,6 +2,7 @@ import Homepage from 'pages/home'
 import Login from 'pages/login'
 import Register from 'pages/register'
 import List from 'pages/list'
+import Edit from 'pages/edit'
 
 export default [
   {
@@ -35,6 +36,15 @@ export default [
     path: '/list',
     exact: true,
     component: List,
+    public: true,
+    private: false,
+    publicOnly: false,
+    layout: 'StackLayout',
+  },
+  {
+    path: '/edit/:admissionNo',
+    exact: true,
+    component: Edit,
     public: true,
     private: false,
     publicOnly: false,

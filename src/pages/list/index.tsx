@@ -3,6 +3,7 @@ import { useIndexedDB } from 'react-indexed-db'
 import { useEffectOnce } from 'react-use'
 import { useTable, Column, CellProps } from 'react-table'
 import { RiEditBoxFill, RiDeleteBin7Fill } from 'react-icons/ri'
+import { useHistory } from 'react-router-dom'
 
 import Box from 'components/Box'
 import Heading from 'components/Heading'
@@ -35,6 +36,7 @@ const ImageCell = ({ value: base64URL }: CellProps<any>) => (
 )
 
 const List = () => {
+  const history = useHistory()
   const { getAll } = useIndexedDB('students')
   const [students, setStudents] = useState<Student[]>([])
   useEffectOnce(() => {
@@ -46,6 +48,7 @@ const List = () => {
   const handleEdit = (admissionNo: string) => {
     // eslint-disable-next-line no-console
     console.log(admissionNo)
+    history.push('/edit/' + admissionNo)
   }
   const handleDelete = (admissionNo: string) => {
     // eslint-disable-next-line no-console
@@ -94,6 +97,7 @@ const List = () => {
         Cell: ActionsCell,
       },
     ],
+    // eslint-disable-next-line
     [],
   )
   const {
