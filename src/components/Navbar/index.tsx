@@ -15,12 +15,16 @@ const StyledLink = styled(Link)`
   color: #fff;
   font-weight: 600;
   margin: 0 8px;
+  &:active {
+    color: ${({ theme }) => theme.color['accent-2']};
+  }
 `
 const Navbar = () => {
   return (
     <StyledHeader>
       <StyledLink to="/register">Register</StyledLink>
       <StyledLink to="/login">Login</StyledLink>
+      <StyledLink to="/list">List</StyledLink>
     </StyledHeader>
   )
 }

@@ -1,6 +1,7 @@
 import Homepage from 'pages/home'
 import Login from 'pages/login'
 import Register from 'pages/register'
+import List from 'pages/list'
 
 export default [
   {
@@ -25,6 +26,15 @@ export default [
     path: '/register',
     exact: true,
     component: Register,
+    public: true,
+    private: false,
+    publicOnly: false,
+    layout: 'StackLayout',
+  },
+  {
+    path: '/list',
+    exact: true,
+    component: List,
     public: true,
     private: false,
     publicOnly: false,

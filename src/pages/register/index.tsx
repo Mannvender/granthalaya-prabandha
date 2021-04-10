@@ -11,6 +11,7 @@ import Webcam from 'components/Webcam'
 import LoaderContainer from 'components/LoaderContainer'
 import useImagePreviewUrl from 'hooks/useImagePreviewUrl'
 import useIndexFace from 'hooks/useIndexFace'
+import { Student } from 'types/student'
 
 const LABELS = {
   image: 'Photo',
@@ -31,26 +32,6 @@ const LABELS = {
   timeSlotIn: 'Time Slot In',
   timeSlotOut: 'Time Slot Out',
   feePaid: 'Fee Paid',
-}
-type FormData = {
-  image: any
-  admissionNo: string
-  name: string
-  fatherName: string
-  mobileNo: number
-  gender: 'Male' | 'Female' | 'Other'
-  identificationDoc: 'Aadhar' | 'Driving Licence' | 'Passport' | 'Other'
-  identificationDocNo: string
-  address: string
-  territory: 'Urban' | 'Rural'
-  router: string
-  lockerNo?: string
-  reservedSeat?: string
-  dateOfJoining: Date
-  validUpto: Date
-  timeSlotIn: Date
-  timeSlotOut: Date
-  feePaid: boolean
 }
 
 const StyledForm = styled.form`
@@ -96,7 +77,7 @@ const Register = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<FormData>({ mode: 'onTouched' })
+  } = useForm<Student>({ mode: 'onTouched' })
   const { add } = useIndexedDB('students')
   const imageFile = watch('image')
   const imagePreviewUrl = useImagePreviewUrl({
@@ -120,7 +101,7 @@ const Register = () => {
     '----isFetching, isSuccess, error----',
   )
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: Student) => {
     try {
       if (base64Image || imagePreviewUrl) {
         const payload = { ...data, image: base64Image || imagePreviewUrl }
