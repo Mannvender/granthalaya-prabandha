@@ -20,6 +20,7 @@ const StyledForm = styled.form`
     font-size: 18px;
     margin-bottom: ${({ theme }) => theme.edgeSize.small};
     min-width: 220px;
+    font-weight: 700;
   }
   input {
     width: 100%;
@@ -180,7 +181,9 @@ const StudentForm = ({ onSubmit, defaultValues = {} }: Props) => {
         )}
       </Box>
       <Box $direction="row" $textAlign="right">
-        <label htmlFor="gender_male">Male</label>
+        <label htmlFor="gender_male" style={{ fontWeight: 300 }}>
+          Male
+        </label>
         <input
           type="radio"
           id="gender_male"
@@ -189,7 +192,9 @@ const StudentForm = ({ onSubmit, defaultValues = {} }: Props) => {
         />
       </Box>
       <Box $direction="row" $textAlign="right">
-        <label htmlFor="gender_female">Female</label>
+        <label htmlFor="gender_female" style={{ fontWeight: 300 }}>
+          Female
+        </label>
         <input
           type="radio"
           id="gender_female"
@@ -198,7 +203,9 @@ const StudentForm = ({ onSubmit, defaultValues = {} }: Props) => {
         />
       </Box>
       <Box $direction="row" $textAlign="right">
-        <label htmlFor="gender_other">Other</label>
+        <label htmlFor="gender_other" style={{ fontWeight: 300 }}>
+          Other
+        </label>
         <input
           type="radio"
           id="gender_other"
@@ -216,7 +223,9 @@ const StudentForm = ({ onSubmit, defaultValues = {} }: Props) => {
         )}
       </Box>
       <Box $direction="row" $textAlign="right">
-        <label htmlFor="id_doc_aadhar">Aadhar Card</label>
+        <label htmlFor="id_doc_aadhar" style={{ fontWeight: 300 }}>
+          Aadhar Card
+        </label>
         <input
           type="radio"
           id="id_doc_aadhar"
@@ -225,7 +234,9 @@ const StudentForm = ({ onSubmit, defaultValues = {} }: Props) => {
         />
       </Box>
       <Box $direction="row" $textAlign="right">
-        <label htmlFor="id_doc_dl">Driving License</label>
+        <label htmlFor="id_doc_dl" style={{ fontWeight: 300 }}>
+          Driving License
+        </label>
         <input
           type="radio"
           id="id_doc_dl"
@@ -234,7 +245,9 @@ const StudentForm = ({ onSubmit, defaultValues = {} }: Props) => {
         />
       </Box>
       <Box $direction="row" $textAlign="right">
-        <label htmlFor="id_doc_passport">Passport</label>
+        <label htmlFor="id_doc_passport" style={{ fontWeight: 300 }}>
+          Passport
+        </label>
         <input
           type="radio"
           id="id_doc_passport"
@@ -243,7 +256,9 @@ const StudentForm = ({ onSubmit, defaultValues = {} }: Props) => {
         />
       </Box>
       <Box $direction="row" $textAlign="right">
-        <label htmlFor="id_doc_other">Other</label>
+        <label htmlFor="id_doc_other" style={{ fontWeight: 300 }}>
+          Other
+        </label>
         <input
           type="radio"
           id="id_doc_other"
@@ -270,7 +285,9 @@ const StudentForm = ({ onSubmit, defaultValues = {} }: Props) => {
       <input type="text" id="address" {...register('address')} />
       <label htmlFor="">{LABELS.territory}</label>
       <Box $direction="row" $textAlign="right">
-        <label htmlFor="territory_urban">Urban</label>
+        <label htmlFor="territory_urban" style={{ fontWeight: 300 }}>
+          Urban
+        </label>
         <input
           type="radio"
           id="territory_urban"
@@ -279,7 +296,9 @@ const StudentForm = ({ onSubmit, defaultValues = {} }: Props) => {
         />
       </Box>
       <Box $direction="row" $textAlign="right">
-        <label htmlFor="territory_rural">Rural</label>
+        <label htmlFor="territory_rural" style={{ fontWeight: 300 }}>
+          Rural
+        </label>
         <input
           type="radio"
           id="territory_rural"
@@ -354,7 +373,9 @@ const StudentForm = ({ onSubmit, defaultValues = {} }: Props) => {
         )}
       </Box>
       <Box $direction="row" $textAlign="right">
-        <label htmlFor="fee_paid_yes">Yes</label>
+        <label htmlFor="fee_paid_yes" style={{ fontWeight: 300 }}>
+          Yes
+        </label>
         <input
           type="radio"
           id="fee_paid_yes"
@@ -363,7 +384,9 @@ const StudentForm = ({ onSubmit, defaultValues = {} }: Props) => {
         />
       </Box>
       <Box $direction="row" $textAlign="right">
-        <label htmlFor="fee_paid_no">No</label>
+        <label htmlFor="fee_paid_no" style={{ fontWeight: 300 }}>
+          No
+        </label>
         <input
           type="radio"
           id="fee_paid_no"

@@ -51,7 +51,7 @@ const StyledButton = styled.button<StyledProps>`
   padding: 3px 20px 3px 20px;
   border: 0;
   border-radius: 14px;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 16px;
   line-height: 24px;
   transition: transform translate 150ms;
