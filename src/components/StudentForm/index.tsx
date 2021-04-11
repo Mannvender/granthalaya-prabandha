@@ -67,7 +67,7 @@ interface Props {
   defaultValues?: Student | {}
 }
 const StudentForm = ({ onSubmit, defaultValues = {} }: Props) => {
-  const [showWebcam, setWebcamVisible] = useState(false)
+  const [showWebcam, setWebcamVisible] = useState(true)
   const {
     register,
     handleSubmit,
@@ -117,16 +117,16 @@ const StudentForm = ({ onSubmit, defaultValues = {} }: Props) => {
         $margin={{ bottom: 'medium' }}
       >
         {showWebcam ? (
-          <Webcam onCapture={handleCapture} />
+          <div style={{ width: '100%' }}>
+            <Webcam onCapture={handleCapture} />
+          </div>
         ) : (
-          <>
-            <input
-              type="file"
-              accept="image/*"
-              id="image"
-              onChange={handleImageChange}
-            />
-          </>
+          <input
+            type="file"
+            accept="image/*"
+            id="image"
+            onChange={handleImageChange}
+          />
         )}
         <StyledPreview
           src={imageValue || 'https://i.ibb.co/SyLM04b/skeleton.png'}
