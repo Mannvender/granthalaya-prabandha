@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
 import { useIndexedDB } from 'react-indexed-db'
 import { useLoading } from '@agney/react-loading'
 
@@ -15,6 +16,7 @@ const StyledP = styled.p`
 `
 
 const Register = () => {
+  const history = useHistory()
   const { add } = useIndexedDB('students')
   const [userId, setUserId] = useState<string>('')
   const [base64Image, setImage] = useState<string>('')
@@ -25,6 +27,9 @@ const Register = () => {
   const { containerProps, indicatorEl } = useLoading({
     loading: isFetching && !isSuccess,
   })
+  useEffect(() => {
+    if (isSuccess) history.push('/list')
+  }, [isSuccess])
   const onSubmit = async (data: Student, base64Image: string) => {
     try {
       if (base64Image) {
