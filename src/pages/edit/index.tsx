@@ -14,9 +14,9 @@ const Edit = () => {
   useEffectOnce(() => {
     getByIndex('admissionNo', admissionNo).then(setStudent).catch(console.error)
   })
-  const onSubmit = (data: Student, base64Image: string) => {
+  const onSubmit = (data: Student) => {
     // eslint-disable-next-line no-console
-    console.log(data, base64Image)
+    console.log(data)
   }
 
   return (

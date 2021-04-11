@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ChangeEvent, useEffect } from 'react'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
 
@@ -63,32 +63,38 @@ const LABELS = {
   feePaid: 'Fee Paid',
 }
 interface Props {
-  onSubmit: (data: Student, base64Image: string) => void
+  onSubmit: (data: Student) => void
   defaultValues?: Student | {}
 }
 const StudentForm = ({ onSubmit, defaultValues = {} }: Props) => {
-  const [showWebcam, setWebcamVisible] = useState(true)
-  const [base64Image, setImage] = useState('')
+  const [showWebcam, setWebcamVisible] = useState(false)
   const {
     register,
     handleSubmit,
+    setValue,
     watch,
     formState: { errors },
   } = useForm<Student>({ mode: 'onTouched', defaultValues })
+  const [imageFile, setImageFile] = useState<Blob>()
 
-  const imageFile = watch('image')
-  const imagePreviewUrl = useImagePreviewUrl({
-    blob: imageFile && typeof imageFile[0] !== 'string' && imageFile[0],
+  const base64Image = useImagePreviewUrl({
+    blob: imageFile,
   })
 
-  const handleCapture = (base64Image: string) => setImage(base64Image)
+  useEffect(() => {
+    if (base64Image) setValue('image', base64Image)
+  }, [base64Image, setValue])
+
+  const handleCapture = (base64Image: string) => {
+    setValue('image', base64Image)
+  }
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) setImageFile(e.target.files[0])
+  }
+  const imageValue = watch('image')
 
   return (
-    <StyledForm
-      onSubmit={handleSubmit((data) =>
-        onSubmit(data, base64Image || imagePreviewUrl),
-      )}
-    >
+    <StyledForm onSubmit={handleSubmit((data) => onSubmit(data))}>
       <Box $direction="row" $justifyContent="space-between">
         <label htmlFor="image">{LABELS.image}*</label>
         {errors.image && <StyledError>{LABELS.image} is required</StyledError>}
@@ -118,14 +124,14 @@ const StudentForm = ({ onSubmit, defaultValues = {} }: Props) => {
               type="file"
               accept="image/*"
               id="image"
-              {...register('image', { required: true })}
-            />
-            <StyledPreview
-              src={imagePreviewUrl || 'https://i.ibb.co/SyLM04b/skeleton.png'}
-              alt="preview"
+              onChange={handleImageChange}
             />
           </>
         )}
+        <StyledPreview
+          src={imageValue || 'https://i.ibb.co/SyLM04b/skeleton.png'}
+          alt="preview"
+        />
       </Box>
       <Box $direction="row" $justifyContent="space-between">
         <label htmlFor="admissionNo">{LABELS.admissionNo}*</label>

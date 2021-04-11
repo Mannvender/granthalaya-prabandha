@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 interface Props {
-  blob: Blob
+  blob?: Blob
 }
 const useImagePreviewUrl = ({ blob }: Props) => {
   const [imagePreviewUrl, setPreview] = useState<any>('')

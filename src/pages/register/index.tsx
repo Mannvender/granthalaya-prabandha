@@ -34,15 +34,14 @@ const Register = () => {
       history.push('/list')
     }
   }, [isSuccess, history, faceId, userId, update])
-  const onSubmit = async (data: Student, base64Image: string) => {
+  const onSubmit = async (data: Student) => {
     try {
-      if (base64Image) {
-        const payload = { ...data, image: base64Image }
-        const dbRes = await add(payload)
+      if (data.image) {
+        const dbRes = await add(data)
         // eslint-disable-next-line no-console
         console.log(dbRes)
         setUserId(dbRes.toString())
-        setImage(base64Image)
+        setImage(data.image)
       } else {
         window.scrollTo({
           top: 0,
