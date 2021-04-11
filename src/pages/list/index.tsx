@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useIndexedDB } from 'react-indexed-db'
 import { useEffectOnce } from 'react-use'
 import { useTable, Column, CellProps } from 'react-table'
-import { RiEditBoxFill, RiDeleteBin7Fill } from 'react-icons/ri'
+import { RiEditBoxFill, RiDeleteBin7Fill, RiAddBoxFill } from 'react-icons/ri'
 import { useHistory } from 'react-router-dom'
 import { Modal } from 'react-responsive-modal'
 import 'react-responsive-modal/styles.css'
@@ -32,6 +32,10 @@ const StyledDeleteIcon = styled(RiDeleteBin7Fill)`
   width: 24px;
   color: ${({ theme }) => theme.color['accent-3']};
   cursor: pointer;
+`
+const StyledAddIcon = styled(RiAddBoxFill)`
+  height: 24px;
+  width: 24px;
 `
 
 const ImageCell = ({ value: base64URL }: CellProps<any>) => (
@@ -135,7 +139,10 @@ const List = () => {
             role="link"
             data-href="/register"
           >
-            Add new student
+            <Box $direction="row">
+              <StyledAddIcon />
+              <span>Add student</span>
+            </Box>
           </Button>
         </div>
       </Box>

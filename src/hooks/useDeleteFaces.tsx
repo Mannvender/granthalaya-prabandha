@@ -1,39 +1,30 @@
 import { useState, useEffect } from 'react'
 import { rekog } from 'App'
 
-import convertDataURIToBinary from 'utils/base64-to-uint8array'
 const { REACT_APP_AWS_REKOGNITION_COLLECTION_ID: CollectionId } = process.env
 
 interface Props {
-  base64Image: string
-  userId: string
+  faceIds: string[]
 }
-const useIndexFace = ({ base64Image, userId }: Props) => {
+const useDeleteFaces = ({ faceIds }: Props) => {
   const [status, setStatus] = useState<{
     isSuccess: boolean
     isFetching: boolean
     error: string
-    faceId: string
-  }>({ isSuccess: false, isFetching: false, error: '', faceId: '' })
+  }>({ isSuccess: false, isFetching: false, error: '' })
   useEffect(() => {
-    if (base64Image && userId) {
+    if (faceIds[0]) {
       setStatus((prevState) => ({ ...prevState, isFetching: true }))
       const payload = {
         CollectionId,
-        ExternalImageId: userId,
-        Image: { Bytes: convertDataURIToBinary(base64Image) },
-        MaxFaces: 1,
+        FaceIds: faceIds,
       }
       rekog
-        .indexFaces(payload)
+        .deleteFaces(payload)
         .then((res) => {
           // eslint-disable-next-line no-console
           console.log(res)
-          let faceId = ''
-          if (res.FaceRecords?.length) {
-            faceId = res.FaceRecords[0]?.Face?.FaceId || ''
-          }
-          setStatus((prevState) => ({ ...prevState, isSuccess: true, faceId }))
+          setStatus((prevState) => ({ ...prevState, isSuccess: true }))
         })
         .catch((err) => {
           console.error(err)
@@ -42,8 +33,8 @@ const useIndexFace = ({ base64Image, userId }: Props) => {
             setStatus((prevState) => ({ ...prevState, error: err.Code }))
         })
     }
-  }, [base64Image, userId])
+  }, [faceIds])
   return status
 }
 
-export default useIndexFace
+export default useDeleteFaces
