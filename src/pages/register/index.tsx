@@ -20,9 +20,9 @@ const Register = () => {
   const history = useHistory()
   const { add, update } = useIndexedDB('students')
   const [userId, setUserId] = useState<string>('')
-  const [base64Image, setImage] = useState<string>('')
+  const [student, setStudent] = useState<Student>()
   const { isFetching, isSuccess, error, faceId } = useIndexFace({
-    base64Image: base64Image,
+    base64Image: student?.image,
     userId,
   })
   const { containerProps, indicatorEl } = useLoading({
@@ -30,7 +30,7 @@ const Register = () => {
   })
   useEffect(() => {
     if (isSuccess) {
-      update({ id: userId, faceId })
+      update({ ...student, id: parseInt(userId), faceId }).catch(console.error)
       history.push('/list')
     }
   }, [isSuccess, history, faceId, userId, update])
@@ -41,7 +41,7 @@ const Register = () => {
         // eslint-disable-next-line no-console
         console.log(dbRes)
         setUserId(dbRes.toString())
-        setImage(data.image)
+        setStudent(data)
       } else {
         window.scrollTo({
           top: 0,

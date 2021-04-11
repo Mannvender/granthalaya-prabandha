@@ -49,13 +49,14 @@ const List = () => {
   const history = useHistory()
   const { getAll, deleteRecord } = useIndexedDB('students')
   const [students, setStudents] = useState<Student[]>([])
-  const [open, setOpen] = useState('')
+  const [admissionNo, setAdmissionNo] = useState('')
   const [deleteConfirm, setDeleteConfirm] = useState(false)
 
   const { isFetching, isSuccess, error } = useDeleteFaces({
     faceIds: [
       (deleteConfirm &&
-        students.find((student) => student.admissionNo === open)?.faceId) ||
+        students.find((student) => student.admissionNo === admissionNo)
+          ?.faceId) ||
         '',
     ],
   })
@@ -69,7 +70,7 @@ const List = () => {
   useEffect(() => {
     if (isSuccess) {
       const databaseId = students.find(
-        (student) => student.admissionNo === open,
+        (student) => student.admissionNo === admissionNo,
       )?.id
       if (databaseId) deleteRecord(databaseId)
     }
@@ -93,7 +94,7 @@ const List = () => {
   const handleDelete = (admissionNo: string) => {
     // eslint-disable-next-line no-console
     console.log(admissionNo)
-    setOpen(admissionNo)
+    setAdmissionNo(admissionNo)
   }
   const ActionsCell = ({ value }: CellProps<any>) => (
     <Box $direction="row" $justifyContent="space-around">
@@ -153,7 +154,7 @@ const List = () => {
     prepareRow,
   } = useTable({ columns, data: students })
 
-  const onCloseModal = () => setOpen('')
+  const onCloseModal = () => setAdmissionNo('')
   const handleAddButtonClick = () => history.push('/register')
 
   return (
@@ -207,7 +208,7 @@ const List = () => {
           })}
         </tbody>
         <Modal
-          open={Boolean(open)}
+          open={Boolean(admissionNo)}
           onClose={onCloseModal}
           center
           aria-labelledby="modal-title"

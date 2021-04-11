@@ -18,4 +18,7 @@ code {
 input {
   font-family: inherit;
 }
+video {
+  border-radius: 4px;
+}
 `
