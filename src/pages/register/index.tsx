@@ -29,7 +29,7 @@ const Register = () => {
   })
   useEffect(() => {
     if (isSuccess) history.push('/list')
-  }, [isSuccess])
+  }, [isSuccess, history])
   const onSubmit = async (data: Student, base64Image: string) => {
     try {
       if (base64Image) {
