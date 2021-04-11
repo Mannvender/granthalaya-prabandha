@@ -1,5 +1,6 @@
 export interface Student {
   id: string | number
+  faceId?: string
   image: any
   admissionNo: string
   name: string
