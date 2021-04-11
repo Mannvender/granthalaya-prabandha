@@ -6,7 +6,7 @@ import { useLoading } from '@agney/react-loading'
 
 import Heading from 'components/Heading'
 import Box from 'components/Box'
-import LoaderContainer from 'components/LoaderContainer'
+import LoaderContainer from 'components/LoadingContainer'
 import useIndexFace from 'hooks/useIndexFace'
 import { Student } from 'types/student'
 import Form from 'components/StudentForm'

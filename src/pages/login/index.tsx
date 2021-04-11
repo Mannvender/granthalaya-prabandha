@@ -5,7 +5,7 @@ import { useIndexedDB } from 'react-indexed-db'
 import Box from 'components/Box'
 import Webcam from 'components/Webcam'
 import Heading from 'components/Heading'
-import LoaderContainer from 'components/LoaderContainer'
+import LoaderContainer from 'components/LoadingContainer'
 import useSearchFaces from 'hooks/useSearchFaces'
 
 const Login = () => {

@@ -14,7 +14,7 @@ import { Student } from 'types/student'
 import styled from 'styled-components'
 import Button from 'components/Button'
 import useDeleteFaces from 'hooks/useDeleteFaces'
-import LoaderContainer from 'components/LoaderContainer'
+import LoaderContainer from 'components/LoadingContainer'
 
 const StyledImage = styled.img`
   height: ${({ theme }) => theme.size.large};

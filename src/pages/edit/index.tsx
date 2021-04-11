@@ -10,7 +10,7 @@ import Form from 'components/StudentForm'
 import Box from 'components/Box'
 import useDeleteFaces from 'hooks/useDeleteFaces'
 import useIndexFace from 'hooks/useIndexFace'
-import LoaderContainer from 'components/LoaderContainer'
+import LoaderContainer from 'components/LoadingContainer'
 
 const Edit = () => {
   const history = useHistory()
