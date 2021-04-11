@@ -28,20 +28,21 @@ const Login = () => {
   )
 
   useEffect(() => {
-    if (!faceMatches.length) return
-
     const faceMatch = faceMatches[0]
-    if (faceMatch.Similarity && faceMatch.Similarity > 80) {
-      const indexedDbId = faceMatch.Face?.ExternalImageId
-      if (indexedDbId)
-        getByID(indexedDbId)
-          .then((studentFromDB) => {
-            delete studentFromDB.image
-            setStudentInfo(studentFromDB)
-          })
-          .catch(console.error)
+    if (faceMatch) {
+      if (faceMatch.Similarity && faceMatch.Similarity > 80) {
+        const indexedDbId = faceMatch.Face?.ExternalImageId
+        if (indexedDbId)
+          getByID(indexedDbId)
+            .then((studentFromDB) => {
+              delete studentFromDB.image
+              setStudentInfo(studentFromDB)
+            })
+            .catch(console.error)
+      }
     }
-  }, [faceMatches, getByID])
+    // eslint-disable-next-line
+  }, [faceMatches])
 
   const handleCapture = (base64: string) => setImage(base64)
 

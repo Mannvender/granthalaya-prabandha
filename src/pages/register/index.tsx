@@ -33,7 +33,7 @@ const Register = () => {
       update({ ...student, id: parseInt(userId), faceId }).catch(console.error)
       history.push('/list')
     }
-  }, [isSuccess, history, faceId, userId, update])
+  }, [isSuccess, history, faceId, userId, update, student])
   const onSubmit = async (data: Student) => {
     try {
       if (data.image) {

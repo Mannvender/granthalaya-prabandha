@@ -16,7 +16,7 @@ const useSearchFaces = ({ base64Image }: Props) => {
     error: string
   }>({ isSuccess: false, isFetching: false, error: '', faceMatches: [] })
   useEffect(() => {
-    if (base64Image) {
+    if (base64Image && !status.isFetching && !status.isSuccess) {
       setStatus((prevState) => ({ ...prevState, isFetching: true }))
       const payload = {
         CollectionId,
@@ -41,6 +41,7 @@ const useSearchFaces = ({ base64Image }: Props) => {
             setStatus((prevState) => ({ ...prevState, error: err.Code }))
         })
     }
+    // eslint-disable-next-line
   }, [base64Image])
   return status
 }

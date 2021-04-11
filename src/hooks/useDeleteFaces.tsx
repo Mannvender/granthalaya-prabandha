@@ -33,6 +33,7 @@ const useDeleteFaces = ({ faceIds }: Props) => {
             setStatus((prevState) => ({ ...prevState, error: err.Code }))
         })
     }
+    // eslint-disable-next-line
   }, [faceIds])
   return status
 }
