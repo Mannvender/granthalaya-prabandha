@@ -7,6 +7,8 @@ import { LoaderProvider, Puff } from '@agney/react-loading'
 import { Rekognition } from '@aws-sdk/client-rekognition'
 import { CognitoIdentityClient } from '@aws-sdk/client-cognito-identity'
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-provider-cognito-identity'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import theme from 'theme'
 import routes from 'routes'
@@ -51,6 +53,13 @@ function App() {
       <Router>
         <ErrorBoundry>
           <LoaderProvider indicator={<StyledPuff />}>
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              closeOnClick
+              pauseOnFocusLoss
+              pauseOnHover
+            />
             <Switch>
               {routes.map((route) => {
                 if (route.private) {
