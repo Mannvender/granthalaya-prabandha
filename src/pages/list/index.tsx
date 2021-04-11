@@ -4,11 +4,14 @@ import { useEffectOnce } from 'react-use'
 import { useTable, Column, CellProps } from 'react-table'
 import { RiEditBoxFill, RiDeleteBin7Fill } from 'react-icons/ri'
 import { useHistory } from 'react-router-dom'
+import { Modal } from 'react-responsive-modal'
+import 'react-responsive-modal/styles.css'
 
 import Box from 'components/Box'
 import Heading from 'components/Heading'
 import { Student } from 'types/student'
 import styled from 'styled-components'
+import Button from 'components/Button'
 
 const StyledImage = styled.img`
   height: ${({ theme }) => theme.size.large};
@@ -39,6 +42,8 @@ const List = () => {
   const history = useHistory()
   const { getAll } = useIndexedDB('students')
   const [students, setStudents] = useState<Student[]>([])
+  const [open, setOpen] = useState(false)
+
   useEffectOnce(() => {
     getAll().then((studentsFromDB) => {
       setStudents(studentsFromDB)
@@ -53,6 +58,7 @@ const List = () => {
   const handleDelete = (admissionNo: string) => {
     // eslint-disable-next-line no-console
     console.log(admissionNo)
+    setOpen(true)
   }
   const ActionsCell = ({ value }: CellProps<any>) => (
     <Box $direction="row" $justifyContent="space-around">
@@ -108,6 +114,8 @@ const List = () => {
     prepareRow,
   } = useTable({ columns, data: students })
 
+  const onCloseModal = () => setOpen(false)
+
   return (
     <Box $padding="medium">
       <Heading>List</Heading>
@@ -137,6 +145,23 @@ const List = () => {
             )
           })}
         </tbody>
+        <Modal
+          open={open}
+          onClose={onCloseModal}
+          center
+          aria-labelledby="modal-title"
+          styles={{
+            root: { color: 'gray' },
+            modal: { borderRadius: '4px' },
+          }}
+          showCloseIcon={false}
+        >
+          <Heading id="modal-title">Are you sure ?</Heading>
+          <Box $direction="row" $justifyContent="space-around">
+            <Button>Yes</Button>
+            <Button>No</Button>
+          </Box>
+        </Modal>
       </StyledTable>
     </Box>
   )
