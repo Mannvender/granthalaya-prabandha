@@ -13,7 +13,7 @@ const useDeleteFaces = ({ faceIds }: Props) => {
     error: string
   }>({ isSuccess: false, isFetching: false, error: '' })
   useEffect(() => {
-    if (faceIds[0]) {
+    if (faceIds[0] && !status.isFetching && !status.isSuccess) {
       setStatus((prevState) => ({ ...prevState, isFetching: true }))
       const payload = {
         CollectionId,

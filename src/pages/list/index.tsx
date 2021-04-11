@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useIndexedDB } from 'react-indexed-db'
 import { useLoading } from '@agney/react-loading'
 import { useEffectOnce } from 'react-use'
@@ -52,13 +52,11 @@ const List = () => {
   const [admissionNo, setAdmissionNo] = useState('')
   const [deleteConfirm, setDeleteConfirm] = useState(false)
 
+  const selectedStudent = useMemo(() => {
+    return students.find((student) => student.admissionNo === admissionNo)
+  }, [admissionNo, students])
   const { isFetching, isSuccess, error } = useDeleteFaces({
-    faceIds: [
-      (deleteConfirm &&
-        students.find((student) => student.admissionNo === admissionNo)
-          ?.faceId) ||
-        '',
-    ],
+    faceIds: [(deleteConfirm && selectedStudent?.faceId) || ''],
   })
   // eslint-disable-next-line no-console
   console.log(
@@ -67,21 +65,28 @@ const List = () => {
     error,
     '-----isFetching, isSuccess, error----',
   )
+  const fetchStudents = () => {
+    getAll().then((studentsFromDB) => {
+      setStudents(studentsFromDB)
+    })
+  }
   useEffect(() => {
     if (isSuccess) {
       const databaseId = students.find(
         (student) => student.admissionNo === admissionNo,
       )?.id
-      if (databaseId) deleteRecord(databaseId)
+      if (databaseId) {
+        deleteRecord(databaseId).catch(console.error)
+        setAdmissionNo('')
+        setDeleteConfirm(false)
+        fetchStudents()
+      }
     }
     // eslint-disable-next-line
   }, [isSuccess])
 
-  useEffectOnce(() => {
-    getAll().then((studentsFromDB) => {
-      setStudents(studentsFromDB)
-    })
-  })
+  useEffectOnce(fetchStudents)
+
   const { containerProps, indicatorEl } = useLoading({
     loading: isFetching && !isSuccess,
   })
@@ -93,7 +98,7 @@ const List = () => {
   }
   const handleDelete = (admissionNo: string) => {
     // eslint-disable-next-line no-console
-    console.log(admissionNo)
+    console.log(admissionNo, 'this admission no need to be deleted-------')
     setAdmissionNo(admissionNo)
   }
   const ActionsCell = ({ value }: CellProps<any>) => (
