@@ -42,7 +42,7 @@ const StyledError = styled.div.attrs(() => ({
   margin-top: 0;
   color: ${({ theme }) => theme.color.error};
 `
-const LABELS = {
+export const LABELS = {
   image: 'Photo',
   admissionNo: 'Admission No.',
   name: 'Name',
