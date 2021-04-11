@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactNode } from 'react'
+import React, { HTMLAttributes, ReactNode, ComponentType } from 'react'
 import styled, { css } from 'styled-components'
 
 import { MarginPaddingKeys } from 'types/margin-padding'
@@ -33,6 +33,10 @@ interface StyledProps extends HTMLAttributes<HTMLButtonElement> {
    * What margin to use ? This will add margin
    */
   $margin?: string | { [key in MarginPaddingKeys]?: string }
+  /**
+   * What html element to use as container
+   */
+  as?: string | ComponentType<any>
 }
 export interface ButtonProps extends StyledProps {
   /**
@@ -42,6 +46,7 @@ export interface ButtonProps extends StyledProps {
 }
 
 const StyledButton = styled.button<StyledProps>`
+  font-family: inherit;
   outline: none;
   padding: 3px 20px 3px 20px;
   border: 0;
