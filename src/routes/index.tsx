@@ -3,6 +3,7 @@ import Login from 'pages/login'
 import Register from 'pages/register'
 import List from 'pages/list'
 import Edit from 'pages/edit'
+import RegisterMultiple from 'pages/register-multiple'
 
 export default [
   {
@@ -45,6 +46,15 @@ export default [
     path: '/edit/:admissionNo',
     exact: true,
     component: Edit,
+    public: true,
+    private: false,
+    publicOnly: false,
+    layout: 'StackLayout',
+  },
+  {
+    path: '/register-multiple',
+    exact: true,
+    component: RegisterMultiple,
     public: true,
     private: false,
     publicOnly: false,
