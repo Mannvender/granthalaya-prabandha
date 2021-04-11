@@ -6,7 +6,7 @@ const { REACT_APP_AWS_REKOGNITION_COLLECTION_ID: CollectionId } = process.env
 
 interface Props {
   base64Image: string
-  userId: string
+  userId?: string
 }
 const useIndexFace = ({ base64Image, userId }: Props) => {
   const [status, setStatus] = useState<{
