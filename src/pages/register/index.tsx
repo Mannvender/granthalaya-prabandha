@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import { useIndexedDB } from 'react-indexed-db'
 import { useLoading } from '@agney/react-loading'
@@ -10,10 +9,7 @@ import LoaderContainer from 'components/LoadingContainer'
 import useIndexFace from 'hooks/useIndexFace'
 import { Student } from 'types/student'
 import Form from 'components/StudentForm'
-
-const StyledP = styled.p`
-  margin-top: 0;
-`
+import P from 'components/Paragraph'
 
 // @todo:Test it
 const Register = () => {
@@ -68,7 +64,7 @@ const Register = () => {
         <LoaderContainer {...containerProps}>{indicatorEl}</LoaderContainer>
       )}
       <Heading>Register</Heading>
-      <StyledP>Fields marked with an asterisk (*) are required.</StyledP>
+      <P>Fields marked with an asterisk (*) are required.</P>
       <Form onSubmit={onSubmit} />
     </Box>
   )
