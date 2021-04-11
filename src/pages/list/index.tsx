@@ -62,7 +62,11 @@ const List = () => {
   }
   const ActionsCell = ({ value }: CellProps<any>) => (
     <Box $direction="row" $justifyContent="space-around">
-      <StyledEditIcon onClick={() => handleEdit(value)} />
+      <StyledEditIcon
+        role="link"
+        data-href="/edit"
+        onClick={() => handleEdit(value)}
+      />
       <StyledDeleteIcon onClick={() => handleDelete(value)} />
     </Box>
   )
@@ -115,10 +119,26 @@ const List = () => {
   } = useTable({ columns, data: students })
 
   const onCloseModal = () => setOpen(false)
+  const handleAddButtonClick = () => history.push('/register')
 
   return (
     <Box $padding="medium">
-      <Heading>List</Heading>
+      <Box $direction="row" $justifyContent="space-between">
+        <Heading>List</Heading>
+        <div>
+          <Button
+            hasShadow={false}
+            backgroundColor="#fff"
+            color="accent-3"
+            style={{ display: 'block' }}
+            onClick={handleAddButtonClick}
+            role="link"
+            data-href="/register"
+          >
+            Add new student
+          </Button>
+        </div>
+      </Box>
       <StyledTable {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -158,8 +178,10 @@ const List = () => {
         >
           <Heading id="modal-title">Are you sure ?</Heading>
           <Box $direction="row" $justifyContent="space-around">
-            <Button>Yes</Button>
-            <Button>No</Button>
+            <Button hasShadow={false}>Yes</Button>
+            <Button hasShadow={false} onClick={() => setOpen(false)}>
+              No
+            </Button>
           </Box>
         </Modal>
       </StyledTable>
