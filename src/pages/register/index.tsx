@@ -15,12 +15,13 @@ const StyledP = styled.p`
   margin-top: 0;
 `
 
+// @todo:Test it
 const Register = () => {
   const history = useHistory()
-  const { add } = useIndexedDB('students')
+  const { add, update } = useIndexedDB('students')
   const [userId, setUserId] = useState<string>('')
   const [base64Image, setImage] = useState<string>('')
-  const { isFetching, isSuccess, error } = useIndexFace({
+  const { isFetching, isSuccess, error, faceId } = useIndexFace({
     base64Image: base64Image,
     userId,
   })
@@ -28,8 +29,11 @@ const Register = () => {
     loading: isFetching && !isSuccess,
   })
   useEffect(() => {
-    if (isSuccess) history.push('/list')
-  }, [isSuccess, history])
+    if (isSuccess) {
+      update({ id: userId, faceId })
+      history.push('/list')
+    }
+  }, [isSuccess, history, faceId, userId, update])
   const onSubmit = async (data: Student, base64Image: string) => {
     try {
       if (base64Image) {

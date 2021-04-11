@@ -47,10 +47,10 @@ const Login = () => {
 
   return (
     <Box $padding="medium">
-      <Heading>Login</Heading>
       {indicatorEl && (
         <LoaderContainer {...containerProps}>{indicatorEl}</LoaderContainer>
       )}
+      <Heading>Login</Heading>
       <Webcam onCapture={handleCapture} />
       <Box $margin={{ top: 'large' }}>
         {JSON.stringify(studentInfo, null, 2)}

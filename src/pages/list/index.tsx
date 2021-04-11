@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useIndexedDB } from 'react-indexed-db'
+import { useLoading } from '@agney/react-loading'
 import { useEffectOnce } from 'react-use'
 import { useTable, Column, CellProps } from 'react-table'
 import { RiEditBoxFill, RiDeleteBin7Fill, RiAddBoxFill } from 'react-icons/ri'
@@ -12,6 +13,8 @@ import Heading from 'components/Heading'
 import { Student } from 'types/student'
 import styled from 'styled-components'
 import Button from 'components/Button'
+import useDeleteFaces from 'hooks/useDeleteFaces'
+import LoaderContainer from 'components/LoaderContainer'
 
 const StyledImage = styled.img`
   height: ${({ theme }) => theme.size.large};
@@ -44,14 +47,42 @@ const ImageCell = ({ value: base64URL }: CellProps<any>) => (
 
 const List = () => {
   const history = useHistory()
-  const { getAll } = useIndexedDB('students')
+  const { getAll, deleteRecord } = useIndexedDB('students')
   const [students, setStudents] = useState<Student[]>([])
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState('')
+  const [deleteConfirm, setDeleteConfirm] = useState(false)
+
+  const { isFetching, isSuccess, error } = useDeleteFaces({
+    faceIds: [
+      (deleteConfirm &&
+        students.find((student) => student.admissionNo === open)?.faceId) ||
+        '',
+    ],
+  })
+  // eslint-disable-next-line no-console
+  console.log(
+    isFetching,
+    isSuccess,
+    error,
+    '-----isFetching, isSuccess, error----',
+  )
+  useEffect(() => {
+    if (isSuccess) {
+      const databaseId = students.find(
+        (student) => student.admissionNo === open,
+      )?.id
+      if (databaseId) deleteRecord(databaseId)
+    }
+    // eslint-disable-next-line
+  }, [isSuccess])
 
   useEffectOnce(() => {
     getAll().then((studentsFromDB) => {
       setStudents(studentsFromDB)
     })
+  })
+  const { containerProps, indicatorEl } = useLoading({
+    loading: isFetching && !isSuccess,
   })
 
   const handleEdit = (admissionNo: string) => {
@@ -62,7 +93,7 @@ const List = () => {
   const handleDelete = (admissionNo: string) => {
     // eslint-disable-next-line no-console
     console.log(admissionNo)
-    setOpen(true)
+    setOpen(admissionNo)
   }
   const ActionsCell = ({ value }: CellProps<any>) => (
     <Box $direction="row" $justifyContent="space-around">
@@ -122,11 +153,14 @@ const List = () => {
     prepareRow,
   } = useTable({ columns, data: students })
 
-  const onCloseModal = () => setOpen(false)
+  const onCloseModal = () => setOpen('')
   const handleAddButtonClick = () => history.push('/register')
 
   return (
     <Box $padding="medium">
+      {indicatorEl && (
+        <LoaderContainer {...containerProps}>{indicatorEl}</LoaderContainer>
+      )}
       <Box $direction="row" $justifyContent="space-between">
         <Heading>List</Heading>
         <div>
@@ -173,7 +207,7 @@ const List = () => {
           })}
         </tbody>
         <Modal
-          open={open}
+          open={Boolean(open)}
           onClose={onCloseModal}
           center
           aria-labelledby="modal-title"
@@ -185,8 +219,10 @@ const List = () => {
         >
           <Heading id="modal-title">Are you sure ?</Heading>
           <Box $direction="row" $justifyContent="space-around">
-            <Button hasShadow={false}>Yes</Button>
-            <Button hasShadow={false} onClick={() => setOpen(false)}>
+            <Button hasShadow={false} onClick={() => setDeleteConfirm(true)}>
+              Yes
+            </Button>
+            <Button hasShadow={false} onClick={onCloseModal}>
               No
             </Button>
           </Box>
