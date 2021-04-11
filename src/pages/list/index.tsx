@@ -3,7 +3,12 @@ import { useIndexedDB } from 'react-indexed-db'
 import { useLoading } from '@agney/react-loading'
 import { useEffectOnce } from 'react-use'
 import { useTable, Column, CellProps } from 'react-table'
-import { RiEditBoxFill, RiDeleteBin7Fill, RiAddBoxFill } from 'react-icons/ri'
+import {
+  RiEditBoxFill,
+  RiDeleteBin7Fill,
+  RiAddBoxFill,
+  RiFileExcel2Fill,
+} from 'react-icons/ri'
 import { useHistory } from 'react-router-dom'
 import { Modal } from 'react-responsive-modal'
 import 'react-responsive-modal/styles.css'
@@ -11,7 +16,7 @@ import 'react-responsive-modal/styles.css'
 import Box from 'components/Box'
 import Heading from 'components/Heading'
 import { Student } from 'types/student'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import Button from 'components/Button'
 import useDeleteFaces from 'hooks/useDeleteFaces'
 import LoaderContainer from 'components/LoadingContainer'
@@ -36,9 +41,17 @@ const StyledDeleteIcon = styled(RiDeleteBin7Fill)`
   color: ${({ theme }) => theme.color['accent-3']};
   cursor: pointer;
 `
+const IconCss = css`
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
+  margin-left: 16px;
+`
 const StyledAddIcon = styled(RiAddBoxFill)`
-  height: 24px;
-  width: 24px;
+  ${IconCss}
+`
+const StyledExcelIcon = styled(RiFileExcel2Fill)`
+  ${IconCss}
 `
 
 const ImageCell = ({ value: base64URL }: CellProps<any>) => (
@@ -160,7 +173,8 @@ const List = () => {
   } = useTable({ columns, data: students })
 
   const onCloseModal = () => setAdmissionNo('')
-  const handleAddButtonClick = () => history.push('/register')
+  const handleAddClick = () => history.push('/register')
+  const handleAddMultipleClick = () => history.push('/register-multiple')
 
   return (
     <Box $padding="medium">
@@ -169,22 +183,18 @@ const List = () => {
       )}
       <Box $direction="row" $justifyContent="space-between">
         <Heading>List</Heading>
-        <div>
-          <Button
-            hasShadow={false}
-            backgroundColor="#fff"
-            color="accent-3"
-            style={{ display: 'block' }}
-            onClick={handleAddButtonClick}
+        <Box $direction="row">
+          <StyledAddIcon
+            onClick={handleAddClick}
             role="link"
             data-href="/register"
-          >
-            <Box $direction="row">
-              <StyledAddIcon />
-              <span>Add student</span>
-            </Box>
-          </Button>
-        </div>
+          />
+          <StyledExcelIcon
+            onClick={handleAddMultipleClick}
+            role="link"
+            data-href="/register-multiple"
+          />
+        </Box>
       </Box>
       <StyledTable {...getTableProps()}>
         <thead>
