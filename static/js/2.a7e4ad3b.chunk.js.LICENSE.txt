@@ -4,11 +4,25 @@ object-assign
 @license MIT
 */
 
+/* @license
+  Papa Parse
+  v5.3.0
+  https://github.com/mholt/PapaParse
+  License: MIT
+  */
+
 /*!
   Copyright (c) 2018 Jed Watson.
   Licensed under the MIT License (MIT), see
   http://jedwatson.github.io/classnames
 */
+
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <http://feross.org>
+ * @license  MIT
+ */
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -27,9 +41,13 @@ PERFORMANCE OF THIS SOFTWARE.
 
 /*! exports provided: default */
 
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
 /*! no static exports found */
 
 /*! react */
+
+/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /*!******************************!*\
         !*** ./src/react-webcam.tsx ***!
