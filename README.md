@@ -1,4 +1,5 @@
-#  Granthalaya-Prabandha (based on [boilerplate](https://github.com/Mannvender/react-typescript-boilerplate))
+#  Granthalaya-Prabandha (based on [boilerplate](https://github.com/Mannvender/react-typescript-boilerplate)) 
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 ## Installation
 
@@ -10,7 +11,7 @@ yarn
 
 ## Running project for development
 
-Copy .env file and rename it to .evn.development.
+Copy .env file and rename it to .evn.development
 ```sh
 yarn start
 ```
