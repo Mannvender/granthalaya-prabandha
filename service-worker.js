@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/granthalaya-prabandha/precache-manifest.1d28ab1d6b77216d0a76285ddb9ce033.js"
+  "/granthalaya-prabandha/precache-manifest.b8036a22a715209bd4593af29e6f8b9b.js"
 );
 
 self.addEventListener('message', (event) => {
