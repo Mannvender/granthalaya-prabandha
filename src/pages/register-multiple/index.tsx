@@ -46,7 +46,10 @@ const RegisterMultiple = () => {
         <LoaderContainer {...containerProps}>{indicatorEl}</LoaderContainer>
       )}
       <Heading>Register multiple</Heading>
-      <P>Please don&apos;t change column names in provided template</P>
+      <P>
+        Please don&apos;t change column <em>names</em> and <em>order</em> in
+        provided template
+      </P>
       <Box $margin={{ bottom: 'large' }} $direction="row">
         <Button
           onClick={handleDownload}
