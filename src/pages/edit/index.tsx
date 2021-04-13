@@ -21,8 +21,9 @@ const Edit = () => {
   const { isFetching, isSuccess: isFaceDataCleared } = useDeleteFaces({
     faceIds: [(updatedStudent && student?.faceId) || ''],
   })
-  const { isSuccess, faceId } = useIndexFace({
-    base64Image: (isFaceDataCleared && updatedStudent?.image) || '',
+  const { isSuccess, error: indexFaceError, faceId } = useIndexFace({
+    base64Image:
+      ((isFaceDataCleared || !student?.faceId) && updatedStudent?.image) || '',
     userId: updatedStudent?.id?.toString(),
   })
   useEffect(() => {
@@ -31,10 +32,27 @@ const Edit = () => {
         ...updatedStudent,
         id: updatedStudent?.id,
         faceId,
-      }).catch(console.error)
-      history.push('/list')
+      })
+        .then(() => {
+          history.push('/list')
+        })
+        .catch(console.error)
     }
-  }, [isSuccess, history, faceId, update, updatedStudent])
+    if (indexFaceError) {
+      // if face could not be indexed then remove image from indexed-db
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      })
+      update({
+        ...updatedStudent,
+        id: updatedStudent?.id,
+        faceId: '',
+        image: '',
+      }).catch(console.error)
+    }
+  }, [isSuccess, indexFaceError, history, faceId, update, updatedStudent])
   useEffectOnce(() => {
     getByIndex('admissionNo', admissionNo).then(setStudent).catch(console.error)
   })
@@ -42,8 +60,6 @@ const Edit = () => {
     loading: isFetching && !isSuccess,
   })
   const onSubmit = (data: Student) => {
-    // eslint-disable-next-line no-console
-    console.log(data)
     update(data)
       .then(() => {
         // if image has been changed by user, update aws face data
