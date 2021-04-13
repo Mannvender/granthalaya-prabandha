@@ -1,6 +1,8 @@
 import React from 'react'
 import { useLoading } from '@agney/react-loading'
 import { toast } from 'react-toastify'
+import { useIndexedDB } from 'react-indexed-db'
+import { useHistory } from 'react-router-dom'
 
 import Heading from 'components/Heading'
 import Box from 'components/Box'
@@ -19,6 +21,8 @@ fields.shift()
 const csv = jsonToCSV({ fields })
 
 const RegisterMultiple = () => {
+  const history = useHistory()
+  const { add } = useIndexedDB('students')
   const { containerProps, indicatorEl } = useLoading({
     loading: false,
   })
@@ -33,8 +37,18 @@ const RegisterMultiple = () => {
       .filter((d: string[]) => d.length > 1)
     try {
       const students = parseStudents(studentsData)
-      // eslint-disable-next-line
-      console.log(students, '-----------------parsed csv-----------')
+      const promises = students.map((student) => add({ ...student }))
+      Promise.allSettled(promises).then((results: any[]) => {
+        results.forEach((result) => {
+          if (result.status === 'rejected') {
+            toast.error(
+              'Could not register one of the student. ' +
+                result?.reason?.target?.error?.message,
+            )
+          }
+        })
+        history.push('/list')
+      })
     } catch (error) {
       toast.error(error?.message || 'Something went wrong!')
     }
