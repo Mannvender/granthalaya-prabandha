@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { toast } from 'react-toastify'
 import { rekog } from 'App'
 
 import convertDataURIToBinary from 'utils/base64-to-uint8array'
@@ -27,15 +28,23 @@ const useIndexFace = ({ base64Image, userId }: Props) => {
       rekog
         .indexFaces(payload)
         .then((res) => {
-          // eslint-disable-next-line no-console
-          console.log(res)
           let faceId = ''
           if (res.FaceRecords?.length) {
             faceId = res.FaceRecords[0]?.Face?.FaceId || ''
+            setStatus((prevState) => ({
+              ...prevState,
+              isSuccess: true,
+              faceId,
+            }))
           }
-          setStatus((prevState) => ({ ...prevState, isSuccess: true, faceId }))
+          if (!faceId) {
+            const errorMessage = 'No face could be detected in selected image!'
+            toast.error(errorMessage)
+            setStatus((prevState) => ({ ...prevState, error: errorMessage }))
+          }
         })
         .catch((err) => {
+          toast.error(err?.message || 'Face data could not be extracted!')
           console.error(err)
           // If collection does not exists then create new
           if (err?.Code)

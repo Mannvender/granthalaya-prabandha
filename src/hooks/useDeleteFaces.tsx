@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { toast } from 'react-toastify'
 import { rekog } from 'App'
 
 const { REACT_APP_AWS_REKOGNITION_COLLECTION_ID: CollectionId } = process.env
@@ -21,12 +22,11 @@ const useDeleteFaces = ({ faceIds }: Props) => {
       }
       rekog
         .deleteFaces(payload)
-        .then((res) => {
-          // eslint-disable-next-line no-console
-          console.log(res)
+        .then(() => {
           setStatus((prevState) => ({ ...prevState, isSuccess: true }))
         })
         .catch((err) => {
+          toast.error(err?.message || 'Face data could not be deleted!')
           console.error(err)
           // If collection does not exists then create new
           if (err?.Code)
