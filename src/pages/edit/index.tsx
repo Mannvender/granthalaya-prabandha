@@ -4,6 +4,7 @@ import { useIndexedDB } from 'react-indexed-db'
 import { useEffectOnce } from 'react-use'
 import { useHistory } from 'react-router-dom'
 import { useLoading } from '@agney/react-loading'
+import { toast } from 'react-toastify'
 
 import { Student } from 'types/student'
 import Form from 'components/StudentForm'
@@ -64,8 +65,15 @@ const Edit = () => {
       .then(() => {
         // if image has been changed by user, update aws face data
         if (data.image !== student?.image) setUpdatedStudent(data)
+        else {
+          toast.success('Student updated!')
+          history.push('/list')
+        }
       })
-      .catch(console.error)
+      .catch((err) => {
+        toast.error(err?.message || 'Student could not be updated!')
+        console.error(err)
+      })
   }
 
   return (
