@@ -29,17 +29,17 @@ const StyledTable = styled.table`
   border: solid 1px ${({ theme }) => theme.color['accent-1']};
   border-radius: 4px;
 `
-const StyledEditIcon = styled(RiEditBoxFill)`
+const SmallIconCss = css`
   height: 24px;
   width: 24px;
   color: ${({ theme }) => theme.color['accent-3']};
   cursor: pointer;
 `
+const StyledEditIcon = styled(RiEditBoxFill)`
+  ${SmallIconCss}
+`
 const StyledDeleteIcon = styled(RiDeleteBin7Fill)`
-  height: 24px;
-  width: 24px;
-  color: ${({ theme }) => theme.color['accent-3']};
-  cursor: pointer;
+  ${SmallIconCss}
 `
 const IconCss = css`
   height: 32px;
