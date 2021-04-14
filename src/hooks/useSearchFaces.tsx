@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { rekog } from 'App'
+import { toast } from 'react-toastify'
 
 import convertDataURIToBinary from 'utils/base64-to-uint8array'
 import { FaceMatch } from '@aws-sdk/client-rekognition'
@@ -35,6 +36,9 @@ const useSearchFaces = ({ base64Image }: Props) => {
           }))
         })
         .catch((err) => {
+          toast.error(
+            err?.message || 'No face data found, please try again or register!',
+          )
           console.error(err)
           // If collection does not exists then create new
           if (err?.Code)
@@ -43,7 +47,14 @@ const useSearchFaces = ({ base64Image }: Props) => {
     }
     // eslint-disable-next-line
   }, [base64Image])
-  return status
+  const resetStatus = () =>
+    setStatus({
+      faceMatches: [],
+      isFetching: false,
+      isSuccess: false,
+      error: '',
+    })
+  return { ...status, resetStatus }
 }
 
 export default useSearchFaces
