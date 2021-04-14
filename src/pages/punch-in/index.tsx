@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react'
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import styled, { css } from 'styled-components'
 import { useLoading } from '@agney/react-loading'
 import { useIndexedDB } from 'react-indexed-db'
@@ -53,6 +53,7 @@ const PunchIn = () => {
   } = useSearchFaces({
     base64Image,
   })
+  const _resetStatus = useCallback(resetStatus, [])
   const { containerProps, indicatorEl } = useLoading({
     loading: isFetching && !isSuccess && !error,
   })
@@ -71,14 +72,14 @@ const PunchIn = () => {
     let timer: NodeJS.Timeout
     if (studentInfo) {
       timer = setTimeout(() => {
-        resetStatus()
+        _resetStatus()
         setStudentInfo(undefined)
       }, 10000)
     }
     return () => {
       if (timer) window.clearTimeout(timer)
     }
-  }, [studentInfo])
+  }, [studentInfo, _resetStatus])
 
   useEffect(() => {
     const faceMatch = faceMatches[0]
@@ -138,7 +139,7 @@ const PunchIn = () => {
 
   const handleCapture = (base64: string) => setImage(base64)
   const onCloseModal = () => {
-    resetStatus()
+    _resetStatus()
     setStudentInfo(undefined)
     if (toastId.current) toast.dismiss(toastId.current)
   }
