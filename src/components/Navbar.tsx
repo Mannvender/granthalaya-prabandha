@@ -23,7 +23,7 @@ const Navbar = () => {
   return (
     <StyledHeader>
       <StyledLink to="/register">Register</StyledLink>
-      <StyledLink to="/login">Login</StyledLink>
+      <StyledLink to="/punch-in">Punch-in</StyledLink>
       <StyledLink to="/list">List</StyledLink>
     </StyledHeader>
   )
