@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.js": "/granthalaya-prabandha/static/js/main.95ab21d7.chunk.js",
-    "main.js.map": "/granthalaya-prabandha/static/js/main.95ab21d7.chunk.js.map",
+    "main.js": "/granthalaya-prabandha/static/js/main.79e44c57.chunk.js",
+    "main.js.map": "/granthalaya-prabandha/static/js/main.79e44c57.chunk.js.map",
     "runtime-main.js": "/granthalaya-prabandha/static/js/runtime-main.8b38797f.js",
     "runtime-main.js.map": "/granthalaya-prabandha/static/js/runtime-main.8b38797f.js.map",
     "static/css/2.f5474c48.chunk.css": "/granthalaya-prabandha/static/css/2.f5474c48.chunk.css",
-    "static/js/2.4ad094d3.chunk.js": "/granthalaya-prabandha/static/js/2.4ad094d3.chunk.js",
-    "static/js/2.4ad094d3.chunk.js.map": "/granthalaya-prabandha/static/js/2.4ad094d3.chunk.js.map",
+    "static/js/2.24d08021.chunk.js": "/granthalaya-prabandha/static/js/2.24d08021.chunk.js",
+    "static/js/2.24d08021.chunk.js.map": "/granthalaya-prabandha/static/js/2.24d08021.chunk.js.map",
     "index.html": "/granthalaya-prabandha/index.html",
-    "precache-manifest.80e0c6660548683bcb1a19ad6e2c8d47.js": "/granthalaya-prabandha/precache-manifest.80e0c6660548683bcb1a19ad6e2c8d47.js",
+    "precache-manifest.c4d34ab23dcdad012a31c0ed28bf21e7.js": "/granthalaya-prabandha/precache-manifest.c4d34ab23dcdad012a31c0ed28bf21e7.js",
     "service-worker.js": "/granthalaya-prabandha/service-worker.js",
     "static/css/2.f5474c48.chunk.css.map": "/granthalaya-prabandha/static/css/2.f5474c48.chunk.css.map",
-    "static/js/2.4ad094d3.chunk.js.LICENSE.txt": "/granthalaya-prabandha/static/js/2.4ad094d3.chunk.js.LICENSE.txt"
+    "static/js/2.24d08021.chunk.js.LICENSE.txt": "/granthalaya-prabandha/static/js/2.24d08021.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.8b38797f.js",
     "static/css/2.f5474c48.chunk.css",
-    "static/js/2.4ad094d3.chunk.js",
-    "static/js/main.95ab21d7.chunk.js"
+    "static/js/2.24d08021.chunk.js",
+    "static/js/main.79e44c57.chunk.js"
   ]
 }
