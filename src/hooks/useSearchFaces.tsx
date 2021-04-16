@@ -16,6 +16,13 @@ const useSearchFaces = ({ base64Image }: Props) => {
     isFetching: boolean
     error: string
   }>({ isSuccess: false, isFetching: false, error: '', faceMatches: [] })
+  const resetStatus = () =>
+    setStatus({
+      faceMatches: [],
+      isFetching: false,
+      isSuccess: false,
+      error: '',
+    })
   useEffect(() => {
     if (base64Image && !status.isFetching && !status.isSuccess) {
       setStatus((prevState) => ({ ...prevState, isFetching: true }))
@@ -38,6 +45,7 @@ const useSearchFaces = ({ base64Image }: Props) => {
         .catch((err) => {
           toast.error(
             err?.message || 'No face data found, please try again or register!',
+            { onClose: resetStatus },
           )
           console.error(err)
           // If collection does not exists then create new
@@ -47,13 +55,6 @@ const useSearchFaces = ({ base64Image }: Props) => {
     }
     // eslint-disable-next-line
   }, [base64Image])
-  const resetStatus = () =>
-    setStatus({
-      faceMatches: [],
-      isFetching: false,
-      isSuccess: false,
-      error: '',
-    })
   return { ...status, resetStatus }
 }
 
