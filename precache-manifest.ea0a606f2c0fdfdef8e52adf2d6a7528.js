@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8681f9d4a3b051ed1c694bc7489ecf75",
+    "revision": "ed52198602824e0165c40ce10e8f530a",
     "url": "/granthalaya-prabandha/index.html"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/granthalaya-prabandha/static/js/2.24d08021.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "cdd55e309588b86d6192",
-    "url": "/granthalaya-prabandha/static/js/main.79e44c57.chunk.js"
+    "revision": "7f53a8eb8bc8440bce6a",
+    "url": "/granthalaya-prabandha/static/js/main.10f12ca4.chunk.js"
   },
   {
     "revision": "0eb6eaf3a096b86e08b4",
