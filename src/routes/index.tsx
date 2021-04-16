@@ -1,5 +1,6 @@
 import Homepage from 'pages/home'
 import PunchIn from 'pages/punch-in'
+import PunchOut from 'pages/punch-out'
 import Register from 'pages/register'
 import List from 'pages/list'
 import Edit from 'pages/edit'
@@ -19,6 +20,15 @@ export default [
     path: '/punch-in',
     exact: true,
     component: PunchIn,
+    public: true,
+    private: false,
+    publicOnly: false,
+    layout: 'StackLayout',
+  },
+  {
+    path: '/punch-out',
+    exact: true,
+    component: PunchOut,
     public: true,
     private: false,
     publicOnly: false,

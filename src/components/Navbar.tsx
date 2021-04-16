@@ -24,6 +24,7 @@ const Navbar = () => {
     <StyledHeader>
       <StyledLink to="/register">Register</StyledLink>
       <StyledLink to="/punch-in">Punch-in</StyledLink>
+      <StyledLink to="/punch-out">Punch-out</StyledLink>
       <StyledLink to="/list">List</StyledLink>
     </StyledHeader>
   )

@@ -3,6 +3,22 @@ export const dbConfig = {
   version: 1,
   objectStoresMeta: [
     {
+      store: 'punch-outs',
+      storeConfig: { keyPath: 'id', autoIncrement: true },
+      storeSchema: [
+        { name: 'studentId', keypath: 'studentId', options: { unique: false } },
+        { name: 'dateTime', keypath: 'dateString', options: { unique: false } },
+      ],
+    },
+    {
+      store: 'punch-ins',
+      storeConfig: { keyPath: 'id', autoIncrement: true },
+      storeSchema: [
+        { name: 'studentId', keypath: 'studentId', options: { unique: false } },
+        { name: 'dateTime', keypath: 'dateString', options: { unique: false } },
+      ],
+    },
+    {
       store: 'students',
       storeConfig: { keyPath: 'id', autoIncrement: true },
       storeSchema: [
